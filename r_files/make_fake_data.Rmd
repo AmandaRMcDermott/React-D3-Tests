@@ -1,0 +1,36 @@
+---
+title: "SQL Practice"
+author: "Amanda McDermott"
+date: "1/28/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dbplyr)
+library(RSQLite)
+```
+
+```{r}
+filing_mthd <- factor(c("efile", "paper", "NA"))
+n_dep <- factor(c(0, 1, 2, 3, 4, 5, 6, 7, 8), ordered = T)
+filing_status <- factor(c("single", "head_of_household", "joint", "married/separate", "window(ed)"), ordered = T)
+group <- factor(c("IDT", "TAS", "OLS", "Other"))
+```
+
+```{r}
+df <- tibble(group =  sample(group, 10000, replace = T),
+       filing_mthd = sample(filing_mthd, 10000, replace = T, prob = c(0.5, 0.4, 0.1)),
+       n_dep = sample(n_dep, 10000, replace = T),
+       filing_status =  sample(filing_status, 10000, replace = T))
+write_csv(df2, "/Users/amanda/GitHub/React-D3-Tests/df.csv")
+write_csv(df2 %>% slice(1:100), "/Users/amanda/GitHub/React-D3-Tests/df.csv")
+df2 <- df %>% 
+  group_by(group, filing_status) %>%
+  count(n_dep, filing_mthd, sort = T) %>% 
+  summarize(n = sum(n))
+
+jsonlite::write_json(jsonlite::toJSON(df2), "/Users/amanda/GitHub/React-D3-Tests/df.json", pretty = F)
+```
+

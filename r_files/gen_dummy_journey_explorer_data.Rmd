@@ -1,0 +1,144 @@
+
+---
+title: "Make Fake Data"
+author: "Amanda McDermott"
+date: "1/28/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+filing_mthd <- factor(c("efile", "paper", "NA"))
+n_dep <- factor(c(0, 1, 2, 3, 4, 5, 6, 7, 8), ordered = T)
+filing_status <- factor(c("Single", "Head of Household", "Joint", "Married/Separate", "Window(ed)"), ordered = T)
+group <- factor(c("Population", "IDT", "TAS", "OLS", "Other"))
+```
+
+```{r}
+# dummy journey building
+journeys_events <- LETTERS[1:15]
+# randomize length with size = sample()
+# collapse string to resemble journey
+# replicate process 100 times so journeys appear more than once when sampled
+journeys <- replicate(100, paste0(sample(journeys_events, size = sample(3:10), replace = T), collapse = " > "))
+```
+
+
+```{r}
+df <- tibble(group =  sample(group, 10000, replace = T, prob = c(0, 0.3, 0.1, 0.2,0.4)),
+       filing_mthd = sample(filing_mthd, 10000, replace = T, prob = c(0.5, 0.4, 0.1)),
+       n_dep = sample(n_dep, 10000, replace = T),
+       filing_status =  sample(filing_status, 10000, replace = T, prob = c(0.4, 0.3, 0.2,0.05,0.05)),
+       journey = sample(journeys, 10000, replace = T))
+
+#write_csv(df2, "/Users/amanda/GitHub/React-D3-Tests/df.csv")
+write_csv(df_long, "C:/Users/User/Documents/GitHub/react_app/df_long.csv")
+write_csv(df_wide, "C:/Users/User/Documents/GitHub/react_app/df_wide.csv")
+#write_csv(df2 %>% slice(1:100), "/Users/amanda/GitHub/React-D3-Tests/df.csv")
+
+df_long <- df %>% 
+  group_by(group, filing_status, journey) %>%
+  count(filing_status, sort = T) %>% 
+  summarize(n = sum(n)) 
+
+#levels(df_long$group)
+
+
+# includes population count for just filing status
+df_w2 <- df_long %>% 
+  select(-journey) %>% 
+  group_by(filing_status) %>% 
+  summarize(n = sum(n)) %>% 
+  mutate(group = "Population",
+         group = factor(group, levels = c("Population", "IDT", "TAS", "OLS", "Other"))) %>% 
+  spread(., key = group, value = n)
+
+df_long %>% 
+  select(-journey) %>% 
+  group_by(filing_status, group) %>% 
+  summarize(n = sum(n)) %>% 
+  spread(., key = group, value = n) %>% 
+  left_join(df_w2) %>% 
+  jsonlite::toJSON()
+
+
+
+
+# w/ journeys ---------------------------------------
+# includes population count for just filing status
+df_w2 <- df_long %>% 
+ # select(-journey) %>% 
+  group_by(filing_status, journey) %>% 
+  summarize(n = sum(n)) %>% 
+  mutate(group = "Population",
+         group = factor(group, levels = c("Population", "IDT", "TAS", "OLS", "Other"))) %>% 
+  spread(., key = group, value = n)
+
+df_long %>% 
+#  select(-journey) %>% 
+  group_by(filing_status, group, journey) %>% 
+  summarize(n = sum(n)) %>% 
+  spread(., key = group, value = n) %>% 
+  left_join(df_w2) %>% 
+  jsonlite::toJSON()
+```
+
+
+```{r}
+
+full_join(
+    df_long %>% 
+      select(-journey), 
+    by = c("filing_status", "group", "n")) %>% 
+  spread(., key = group, value = n) # make data wide
+
+df_w3 <- df_long %>% 
+ # select(-journey) %>% 
+  group_by(filing_status, journey) %>% 
+  summarize(n = sum(n)) %>% 
+  mutate(group = "Population",
+         group = factor(group, levels = c("Population", "IDT", "TAS", "OLS", "Other"))) #%>% 
+  #spread(., key = group, value = n)
+
+df_long %>% 
+#  select(-journey) %>% 
+  group_by(filing_status, group, journey) %>% 
+  summarize(n = sum(n)) %>% 
+  #spread(., key = group, value = n) %>% 
+  left_join(df_w3) %>% 
+  jsonlite::toJSON(na = "string")
+
+# to go from the above to distinct counts:
+df_long %>% 
+#  select(-journey) %>% 
+  group_by(filing_status, group, journey) %>% 
+  summarize(n = sum(n)) %>% 
+  spread(., key = group, value = n) %>% 
+  left_join(df_w3) %>% 
+  summarize_if(is.integer, sum, na.rm = T) %>% 
+  jsonlite::toJSON(na = "string")
+```
+
+```{r}
+df_wide <- df %>% 
+  group_by(group, filing_status, journey) %>%
+  count(filing_status, sort = T) %>% 
+  summarize(n = sum(n)) %>% 
+  spread(., key = group, value = n)
+
+head(df2)
+
+# take col sums w/o journey
+df2 %>% 
+  select(-journey) %>% 
+  summarize_at(c("IDT","OLS","Other", "TAS"), sum, na.rm = T)
+
+
+jsonlite::toJSON(df_wide)
+
+jsonlite::write_json(jsonlite::toJSON(df2), "/Users/amanda/GitHub/React-D3-Tests/df.json", pretty = F)
+```
