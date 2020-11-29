@@ -30,7 +30,6 @@ const drawLineChart = async () => {
   // bounds - contains all data elements (line)
 
 
-
 }
 
 drawLineChart();
