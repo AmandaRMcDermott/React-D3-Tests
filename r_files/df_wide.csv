@@ -1,0 +1,500 @@
+filing_status,journey,IDT,OLS,Other,population,TAS
+head_of_household,A > D > E > B > G > A > I > L > L > K,8,9,10,32,5
+head_of_household,A > F > N > B > J > A > F > F > B > B,12,4,9,29,4
+head_of_household,A > G > E > N > D > E > K,14,6,14,36,2
+head_of_household,A > J > I > D > I > G > G > I > K > D,4,6,14,27,3
+head_of_household,A > L > H > D > M,11,6,6,28,5
+head_of_household,A > M > G > H > F > M > H > K,4,8,12,25,1
+head_of_household,A > M > N > B > C > D > H > D > B > I,6,4,17,33,6
+head_of_household,B > A > M > B > E,7,5,8,22,2
+head_of_household,B > B > G > N > O > A,9,5,7,27,6
+head_of_household,B > G > I > K > O > I > E > D > N,13,5,13,32,1
+head_of_household,B > K > G,9,7,11,34,7
+head_of_household,B > L > D,10,4,10,27,3
+head_of_household,B > L > G > A,13,2,11,29,3
+head_of_household,B > N > B > K > C,9,2,11,25,3
+head_of_household,C > A > I,16,8,7,34,3
+head_of_household,C > B > B > B > C > M > A,8,4,14,28,2
+head_of_household,C > B > J,10,8,4,24,2
+head_of_household,C > B > M > J > O,10,4,11,26,1
+head_of_household,C > D > L,4,5,12,23,2
+head_of_household,C > I > L,10,9,11,32,2
+head_of_household,C > K > D > J,5,7,8,22,2
+head_of_household,C > N > B,11,7,17,36,1
+head_of_household,C > N > K > K > B > D > J > F > H > H,6,7,8,21,NA
+head_of_household,D > C > K > G,13,4,12,33,4
+head_of_household,D > E > M,13,7,11,34,3
+head_of_household,D > L > K > F > A,13,10,15,41,3
+head_of_household,D > N > O,10,7,14,32,1
+head_of_household,E > A > K,9,2,15,32,6
+head_of_household,E > D > J > F > H > L > L > E > J,7,4,16,30,3
+head_of_household,E > J > J > H > A > E,9,6,10,28,3
+head_of_household,E > K > K > M > L > K > B > O,12,6,9,29,2
+head_of_household,E > L > F > K > B > K > H > F > L,9,3,7,20,1
+head_of_household,F > A > I > D > L > E,7,6,14,30,3
+head_of_household,F > H > M > D > A > E > N > L > F > A,9,7,8,27,3
+head_of_household,F > K > A > M > G > K,15,5,9,32,3
+head_of_household,G > A > K > I > C > B,7,3,13,25,2
+head_of_household,G > C > E > K > F > J > J > L,7,4,15,29,3
+head_of_household,G > F > N,7,7,11,26,1
+head_of_household,G > J > K > L > O,8,5,13,30,4
+head_of_household,G > K > E > K > N,7,8,10,26,1
+head_of_household,G > L > H > D,8,4,10,22,NA
+head_of_household,H > F > D > F > K > H > H > A > D > F,5,3,13,24,3
+head_of_household,H > H > K,7,5,10,25,3
+head_of_household,H > H > K > J > I > H,8,5,11,27,3
+head_of_household,H > I > F > A > I > O > A > C,11,6,15,34,2
+head_of_household,H > K > C,13,5,16,35,1
+head_of_household,H > K > G > J,9,5,10,26,2
+head_of_household,H > K > J > C > J > D > G > G > N > M,5,6,15,27,1
+head_of_household,H > L > E > I > A > D > L > I > J,14,10,10,38,4
+head_of_household,H > O > B > L > C > H > N > G > H > N,9,2,6,21,4
+head_of_household,I > J > E > K > L > K > K,8,3,8,26,7
+head_of_household,I > M > B > C,4,8,9,23,2
+head_of_household,I > M > G > M > L > A > L > B,11,7,10,29,1
+head_of_household,I > N > D > J,7,10,12,33,4
+head_of_household,J > F > K > C > C > D > E > E > N,11,11,8,35,5
+head_of_household,J > J > C > A > M > K > C,5,8,13,29,3
+head_of_household,J > N > O > A > L > A > A,9,4,7,25,5
+head_of_household,K > B > I > L > M > C > M > O > B > G,9,7,15,32,1
+head_of_household,K > B > N > G,4,5,13,26,4
+head_of_household,K > B > O > I > A > K > E > I > C > N,9,4,8,23,2
+head_of_household,K > G > C > A > H > N > L > J,8,5,9,22,NA
+head_of_household,K > G > E > F > B,8,9,8,28,3
+head_of_household,K > H > B > N > L > M > K > K > D > G,12,8,7,32,5
+head_of_household,K > J > K > E > F > E > G > D,7,5,11,30,7
+head_of_household,K > M > B > E > A > H > B > J > O > D,11,9,12,35,3
+head_of_household,K > N > J > D > N > A,6,5,12,24,1
+head_of_household,K > N > M > D > A > M,11,6,13,31,1
+head_of_household,L > A > E > J > E > K > A,8,3,15,28,2
+head_of_household,L > B > F > K,6,5,16,28,1
+head_of_household,L > H > J > B > O > M > D > K > H,15,4,17,39,3
+head_of_household,L > L > J,5,10,18,36,3
+head_of_household,L > N > M > O,11,2,8,26,5
+head_of_household,L > O > J > J > O > F > A > F > A,12,3,16,33,2
+head_of_household,L > O > N > K > K,9,3,11,25,2
+head_of_household,M > B > G > B > B > F > O > G,8,4,23,38,3
+head_of_household,M > C > J > G > J > A > G > L > L,14,5,9,30,2
+head_of_household,M > E > H > J > L > K > I > G > D > B,11,7,6,28,4
+head_of_household,M > E > I > K > E > C > M > A > C,8,3,13,29,5
+head_of_household,M > E > M > I > B > F,7,3,19,32,3
+head_of_household,M > G > A,9,6,8,28,5
+head_of_household,M > K > D,8,5,12,27,2
+head_of_household,N > B > B > N > D,6,7,10,25,2
+head_of_household,N > B > D > M > A > L,10,6,10,33,7
+head_of_household,N > E > B > E > E > D > B > M > H > O,13,4,10,30,3
+head_of_household,N > E > D > J > E > B,5,7,16,30,2
+head_of_household,N > F > L > J > L,7,5,13,28,3
+head_of_household,N > H > A > I > C,8,7,7,23,1
+head_of_household,N > L > M > D > O > G,5,12,11,32,4
+head_of_household,N > N > I > M,8,8,14,34,4
+head_of_household,N > N > M > I > G > H > M,8,4,3,18,3
+head_of_household,O > E > O > M > B,10,5,9,28,4
+head_of_household,O > H > F > H > I > C > H > J,8,2,17,35,8
+head_of_household,O > I > J > H > A > E > L > O > H,8,8,14,36,6
+head_of_household,O > I > L > O > H > N,9,5,11,27,2
+head_of_household,O > L > K > H,12,3,17,36,4
+head_of_household,O > M > E > F > F > C,11,6,12,31,2
+head_of_household,O > N > A > K > K,5,4,16,26,1
+head_of_household,O > N > D,11,10,17,45,7
+head_of_household,O > N > M > L > H > E > E > D,9,4,13,29,3
+head_of_household,O > O > F,14,7,11,32,NA
+joint,A > D > E > B > G > A > I > L > L > K,2,3,10,19,4
+joint,A > F > N > B > J > A > F > F > B > B,8,3,10,23,2
+joint,A > G > E > N > D > E > K,8,2,5,18,3
+joint,A > J > I > D > I > G > G > I > K > D,8,4,9,22,1
+joint,A > L > H > D > M,6,3,10,23,4
+joint,A > M > G > H > F > M > H > K,8,3,5,17,1
+joint,A > M > N > B > C > D > H > D > B > I,1,3,7,14,3
+joint,B > A > M > B > E,6,7,11,26,2
+joint,B > B > G > N > O > A,5,3,6,16,2
+joint,B > G > I > K > O > I > E > D > N,8,3,5,16,NA
+joint,B > K > G,7,5,2,17,3
+joint,B > L > D,5,8,6,22,3
+joint,B > L > G > A,11,2,14,28,1
+joint,B > N > B > K > C,4,3,11,21,3
+joint,C > A > I,7,2,10,22,3
+joint,C > B > B > B > C > M > A,3,2,9,18,4
+joint,C > B > J,5,8,8,22,1
+joint,C > B > M > J > O,3,3,7,17,4
+joint,C > D > L,9,2,5,19,3
+joint,C > I > L,5,2,7,18,4
+joint,C > K > D > J,6,4,5,20,5
+joint,C > N > B,7,3,7,17,NA
+joint,C > N > K > K > B > D > J > F > H > H,4,2,11,19,2
+joint,D > C > K > G,7,6,6,19,NA
+joint,D > E > M,4,6,6,16,NA
+joint,D > L > K > F > A,6,3,10,20,1
+joint,D > N > O,6,2,8,17,1
+joint,E > A > K,3,3,10,18,2
+joint,E > D > J > F > H > L > L > E > J,7,4,6,21,4
+joint,E > J > J > H > A > E,6,7,7,23,3
+joint,E > K > K > M > L > K > B > O,10,2,10,24,2
+joint,E > L > F > K > B > K > H > F > L,10,3,11,27,3
+joint,F > A > I > D > L > E,5,4,12,21,NA
+joint,F > H > M > D > A > E > N > L > F > A,7,5,9,23,2
+joint,F > K > A > M > G > K,7,1,8,19,3
+joint,G > A > K > I > C > B,5,NA,14,21,2
+joint,G > C > E > K > F > J > J > L,7,6,6,21,2
+joint,G > F > N,3,1,9,13,NA
+joint,G > J > K > L > O,6,9,5,24,4
+joint,G > K > E > K > N,4,3,8,18,3
+joint,G > L > H > D,6,2,4,12,NA
+joint,H > F > D > F > K > H > H > A > D > F,5,6,14,27,2
+joint,H > H > K,5,4,9,20,2
+joint,H > H > K > J > I > H,7,3,10,20,NA
+joint,H > I > F > A > I > O > A > C,6,4,6,17,1
+joint,H > K > C,10,2,12,26,2
+joint,H > K > G > J,5,5,6,17,1
+joint,H > K > J > C > J > D > G > G > N > M,4,2,14,25,5
+joint,H > L > E > I > A > D > L > I > J,9,7,7,24,1
+joint,H > O > B > L > C > H > N > G > H > N,5,3,8,17,1
+joint,I > J > E > K > L > K > K,11,6,11,30,2
+joint,I > M > B > C,5,5,8,19,1
+joint,I > M > G > M > L > A > L > B,6,9,7,23,1
+joint,I > N > D > J,10,1,11,25,3
+joint,J > F > K > C > C > D > E > E > N,12,6,7,30,5
+joint,J > J > C > A > M > K > C,5,2,8,18,3
+joint,J > N > O > A > L > A > A,6,2,8,17,1
+joint,K > B > I > L > M > C > M > O > B > G,5,1,6,12,NA
+joint,K > B > N > G,5,5,6,19,3
+joint,K > B > O > I > A > K > E > I > C > N,8,3,4,16,1
+joint,K > G > C > A > H > N > L > J,7,5,10,22,NA
+joint,K > G > E > F > B,5,4,10,21,2
+joint,K > H > B > N > L > M > K > K > D > G,6,3,9,20,2
+joint,K > J > K > E > F > E > G > D,2,3,8,15,2
+joint,K > M > B > E > A > H > B > J > O > D,7,5,8,22,2
+joint,K > N > J > D > N > A,12,2,11,27,2
+joint,K > N > M > D > A > M,13,4,6,24,1
+joint,L > A > E > J > E > K > A,6,4,11,24,3
+joint,L > B > F > K,4,4,9,17,NA
+joint,L > H > J > B > O > M > D > K > H,4,3,6,16,3
+joint,L > L > J,10,7,12,30,1
+joint,L > N > M > O,2,4,10,16,NA
+joint,L > O > J > J > O > F > A > F > A,3,2,5,11,1
+joint,L > O > N > K > K,4,1,10,18,3
+joint,M > B > G > B > B > F > O > G,8,5,5,20,2
+joint,M > C > J > G > J > A > G > L > L,7,5,12,25,1
+joint,M > E > H > J > L > K > I > G > D > B,8,5,9,25,3
+joint,M > E > I > K > E > C > M > A > C,6,8,6,22,2
+joint,M > E > M > I > B > F,2,3,9,16,2
+joint,M > G > A,4,4,6,18,4
+joint,M > K > D,2,2,3,8,1
+joint,N > B > B > N > D,6,5,6,17,NA
+joint,N > B > D > M > A > L,5,2,9,16,NA
+joint,N > E > B > E > E > D > B > M > H > O,8,7,13,29,1
+joint,N > E > D > J > E > B,9,3,6,19,1
+joint,N > F > L > J > L,4,3,8,19,4
+joint,N > H > A > I > C,6,2,11,19,NA
+joint,N > L > M > D > O > G,6,8,12,28,2
+joint,N > N > I > M,2,4,3,12,3
+joint,N > N > M > I > G > H > M,5,5,4,18,4
+joint,O > E > O > M > B,7,4,9,22,2
+joint,O > H > F > H > I > C > H > J,5,8,8,23,2
+joint,O > I > J > H > A > E > L > O > H,5,NA,8,14,1
+joint,O > I > L > O > H > N,5,8,9,23,1
+joint,O > L > K > H,6,5,12,24,1
+joint,O > M > E > F > F > C,5,4,7,17,1
+joint,O > N > A > K > K,7,7,7,21,NA
+joint,O > N > D,8,2,6,17,1
+joint,O > N > M > L > H > E > E > D,11,5,3,20,1
+joint,O > O > F,5,7,5,21,4
+married/separate,A > D > E > B > G > A > I > L > L > K,2,2,NA,4,NA
+married/separate,A > F > N > B > J > A > F > F > B > B,1,NA,6,7,NA
+married/separate,A > G > E > N > D > E > K,NA,NA,4,4,NA
+married/separate,A > J > I > D > I > G > G > I > K > D,1,2,1,5,1
+married/separate,A > L > H > D > M,4,1,3,9,1
+married/separate,A > M > G > H > F > M > H > K,2,1,1,4,NA
+married/separate,A > M > N > B > C > D > H > D > B > I,2,4,1,7,NA
+married/separate,B > A > M > B > E,4,1,1,7,1
+married/separate,B > B > G > N > O > A,3,2,1,7,1
+married/separate,B > G > I > K > O > I > E > D > N,1,NA,1,2,NA
+married/separate,B > K > G,1,1,2,5,1
+married/separate,B > L > D,2,NA,2,4,NA
+married/separate,B > L > G > A,2,NA,3,5,NA
+married/separate,B > N > B > K > C,1,NA,NA,2,1
+married/separate,C > A > I,2,1,2,5,NA
+married/separate,C > B > B > B > C > M > A,1,1,1,3,NA
+married/separate,C > B > J,1,2,6,9,NA
+married/separate,C > B > M > J > O,2,1,2,5,NA
+married/separate,C > D > L,2,2,2,6,NA
+married/separate,C > I > L,1,NA,1,2,NA
+married/separate,C > K > D > J,1,1,6,9,1
+married/separate,C > N > B,NA,2,2,4,NA
+married/separate,C > N > K > K > B > D > J > F > H > H,3,NA,1,6,2
+married/separate,D > C > K > G,5,2,1,9,1
+married/separate,D > E > M,1,NA,NA,2,1
+married/separate,D > L > K > F > A,1,1,2,4,NA
+married/separate,D > N > O,2,2,6,10,NA
+married/separate,E > A > K,3,1,2,7,1
+married/separate,E > D > J > F > H > L > L > E > J,1,1,2,4,NA
+married/separate,E > J > J > H > A > E,1,2,4,7,NA
+married/separate,E > K > K > M > L > K > B > O,3,3,1,8,1
+married/separate,E > L > F > K > B > K > H > F > L,3,2,3,8,NA
+married/separate,F > A > I > D > L > E,2,NA,3,5,NA
+married/separate,F > H > M > D > A > E > N > L > F > A,NA,1,3,4,NA
+married/separate,F > K > A > M > G > K,1,1,2,4,NA
+married/separate,G > A > K > I > C > B,1,3,2,8,2
+married/separate,G > C > E > K > F > J > J > L,3,NA,3,6,NA
+married/separate,G > F > N,2,NA,1,3,NA
+married/separate,G > J > K > L > O,1,NA,4,5,NA
+married/separate,G > K > E > K > N,NA,2,4,6,NA
+married/separate,G > L > H > D,2,1,4,8,1
+married/separate,H > F > D > F > K > H > H > A > D > F,1,NA,2,5,2
+married/separate,H > H > K,NA,NA,2,2,NA
+married/separate,H > H > K > J > I > H,1,NA,2,3,NA
+married/separate,H > I > F > A > I > O > A > C,1,1,NA,2,NA
+married/separate,H > K > C,2,1,NA,3,NA
+married/separate,H > K > G > J,1,1,3,6,1
+married/separate,H > K > J > C > J > D > G > G > N > M,3,3,3,10,1
+married/separate,H > L > E > I > A > D > L > I > J,3,1,2,6,NA
+married/separate,H > O > B > L > C > H > N > G > H > N,NA,1,1,3,1
+married/separate,I > J > E > K > L > K > K,2,1,NA,5,2
+married/separate,I > M > B > C,2,1,4,8,1
+married/separate,I > M > G > M > L > A > L > B,1,NA,3,5,1
+married/separate,I > N > D > J,1,NA,2,3,NA
+married/separate,J > F > K > C > C > D > E > E > N,NA,NA,3,3,NA
+married/separate,J > J > C > A > M > K > C,4,1,4,10,1
+married/separate,J > N > O > A > L > A > A,2,NA,NA,2,NA
+married/separate,K > B > I > L > M > C > M > O > B > G,1,1,3,7,2
+married/separate,K > B > N > G,1,2,2,5,NA
+married/separate,K > B > O > I > A > K > E > I > C > N,1,1,2,5,1
+married/separate,K > G > C > A > H > N > L > J,1,NA,1,2,NA
+married/separate,K > G > E > F > B,1,NA,2,4,1
+married/separate,K > H > B > N > L > M > K > K > D > G,NA,NA,1,1,NA
+married/separate,K > J > K > E > F > E > G > D,NA,1,1,2,NA
+married/separate,K > M > B > E > A > H > B > J > O > D,4,1,3,8,NA
+married/separate,K > N > J > D > N > A,2,2,1,6,1
+married/separate,K > N > M > D > A > M,NA,2,2,6,2
+married/separate,L > A > E > J > E > K > A,3,NA,3,6,NA
+married/separate,L > B > F > K,4,1,2,7,NA
+married/separate,L > H > J > B > O > M > D > K > H,2,1,1,4,NA
+married/separate,L > L > J,1,3,1,5,NA
+married/separate,L > N > M > O,NA,2,2,4,NA
+married/separate,L > O > J > J > O > F > A > F > A,1,1,1,3,NA
+married/separate,L > O > N > K > K,2,1,2,6,1
+married/separate,M > B > G > B > B > F > O > G,2,2,NA,5,1
+married/separate,M > C > J > G > J > A > G > L > L,1,2,NA,3,NA
+married/separate,M > E > H > J > L > K > I > G > D > B,3,NA,3,8,2
+married/separate,M > E > I > K > E > C > M > A > C,3,3,4,10,NA
+married/separate,M > E > M > I > B > F,NA,1,3,5,1
+married/separate,M > G > A,2,2,1,6,1
+married/separate,M > K > D,NA,1,1,4,2
+married/separate,N > B > B > N > D,2,NA,2,4,NA
+married/separate,N > B > D > M > A > L,2,NA,3,6,1
+married/separate,N > E > B > E > E > D > B > M > H > O,1,1,2,5,1
+married/separate,N > E > D > J > E > B,2,2,NA,4,NA
+married/separate,N > F > L > J > L,1,NA,3,4,NA
+married/separate,N > H > A > I > C,1,2,4,7,NA
+married/separate,N > L > M > D > O > G,NA,NA,3,3,NA
+married/separate,N > N > I > M,NA,3,NA,4,1
+married/separate,N > N > M > I > G > H > M,1,1,4,6,NA
+married/separate,O > E > O > M > B,1,1,4,7,1
+married/separate,O > H > F > H > I > C > H > J,1,NA,1,3,1
+married/separate,O > I > J > H > A > E > L > O > H,NA,NA,4,4,NA
+married/separate,O > I > L > O > H > N,2,2,2,6,NA
+married/separate,O > L > K > H,1,NA,NA,1,NA
+married/separate,O > M > E > F > F > C,2,1,3,7,1
+married/separate,O > N > A > K > K,1,1,4,7,1
+married/separate,O > N > D,3,NA,NA,3,NA
+married/separate,O > N > M > L > H > E > E > D,3,NA,2,5,NA
+married/separate,O > O > F,4,1,1,6,NA
+single,A > D > E > B > G > A > I > L > L > K,12,6,17,40,5
+single,A > F > N > B > J > A > F > F > B > B,9,12,12,38,5
+single,A > G > E > N > D > E > K,14,11,21,50,4
+single,A > J > I > D > I > G > G > I > K > D,13,7,11,34,3
+single,A > L > H > D > M,16,9,17,44,2
+single,A > M > G > H > F > M > H > K,10,6,16,34,2
+single,A > M > N > B > C > D > H > D > B > I,13,14,18,48,3
+single,B > A > M > B > E,9,13,14,39,3
+single,B > B > G > N > O > A,15,6,13,37,3
+single,B > G > I > K > O > I > E > D > N,13,2,17,37,5
+single,B > K > G,8,5,23,43,7
+single,B > L > D,7,15,17,45,6
+single,B > L > G > A,14,5,22,43,2
+single,B > N > B > K > C,10,5,12,31,4
+single,C > A > I,16,9,14,39,NA
+single,C > B > B > B > C > M > A,7,5,14,34,8
+single,C > B > J,10,11,17,42,4
+single,C > B > M > J > O,9,4,21,39,5
+single,C > D > L,13,7,18,39,1
+single,C > I > L,12,11,24,51,4
+single,C > K > D > J,14,4,17,37,2
+single,C > N > B,13,5,18,41,5
+single,C > N > K > K > B > D > J > F > H > H,14,5,16,38,3
+single,D > C > K > G,7,8,20,36,1
+single,D > E > M,9,10,5,28,4
+single,D > L > K > F > A,9,7,18,39,5
+single,D > N > O,9,5,13,33,6
+single,E > A > K,10,4,23,41,4
+single,E > D > J > F > H > L > L > E > J,12,6,13,32,1
+single,E > J > J > H > A > E,13,8,18,46,7
+single,E > K > K > M > L > K > B > O,6,9,15,31,1
+single,E > L > F > K > B > K > H > F > L,11,7,14,34,2
+single,F > A > I > D > L > E,19,5,13,41,4
+single,F > H > M > D > A > E > N > L > F > A,12,15,14,44,3
+single,F > K > A > M > G > K,13,4,17,37,3
+single,G > A > K > I > C > B,18,7,23,54,6
+single,G > C > E > K > F > J > J > L,17,11,16,47,3
+single,G > F > N,10,11,12,39,6
+single,G > J > K > L > O,8,9,23,45,5
+single,G > K > E > K > N,16,4,18,42,4
+single,G > L > H > D,16,13,17,48,2
+single,H > F > D > F > K > H > H > A > D > F,10,6,12,29,1
+single,H > H > K,7,12,22,42,1
+single,H > H > K > J > I > H,16,8,19,49,6
+single,H > I > F > A > I > O > A > C,13,11,21,54,9
+single,H > K > C,12,6,22,45,5
+single,H > K > G > J,13,5,18,45,9
+single,H > K > J > C > J > D > G > G > N > M,10,13,20,47,4
+single,H > L > E > I > A > D > L > I > J,8,14,23,48,3
+single,H > O > B > L > C > H > N > G > H > N,14,7,11,34,2
+single,I > J > E > K > L > K > K,10,11,24,51,6
+single,I > M > B > C,14,11,19,46,2
+single,I > M > G > M > L > A > L > B,5,6,21,32,NA
+single,I > N > D > J,8,13,16,40,3
+single,J > F > K > C > C > D > E > E > N,9,5,15,31,2
+single,J > J > C > A > M > K > C,17,9,22,50,2
+single,J > N > O > A > L > A > A,9,9,15,38,5
+single,K > B > I > L > M > C > M > O > B > G,9,8,11,31,3
+single,K > B > N > G,13,11,13,41,4
+single,K > B > O > I > A > K > E > I > C > N,13,10,23,49,3
+single,K > G > C > A > H > N > L > J,15,5,11,35,4
+single,K > G > E > F > B,13,12,18,45,2
+single,K > H > B > N > L > M > K > K > D > G,15,7,13,38,3
+single,K > J > K > E > F > E > G > D,12,3,14,33,4
+single,K > M > B > E > A > H > B > J > O > D,15,10,15,45,5
+single,K > N > J > D > N > A,10,7,17,35,1
+single,K > N > M > D > A > M,13,7,15,37,2
+single,L > A > E > J > E > K > A,15,9,15,43,4
+single,L > B > F > K,11,10,26,49,2
+single,L > H > J > B > O > M > D > K > H,16,8,14,41,3
+single,L > L > J,15,15,13,47,4
+single,L > N > M > O,15,8,15,38,NA
+single,L > O > J > J > O > F > A > F > A,14,5,17,43,7
+single,L > O > N > K > K,13,3,17,35,2
+single,M > B > G > B > B > F > O > G,16,10,12,42,4
+single,M > C > J > G > J > A > G > L > L,10,15,16,44,3
+single,M > E > H > J > L > K > I > G > D > B,17,4,7,33,5
+single,M > E > I > K > E > C > M > A > C,10,7,14,35,4
+single,M > E > M > I > B > F,10,8,19,41,4
+single,M > G > A,13,4,14,36,5
+single,M > K > D,12,6,12,33,3
+single,N > B > B > N > D,11,6,16,33,NA
+single,N > B > D > M > A > L,7,8,16,36,5
+single,N > E > B > E > E > D > B > M > H > O,8,3,26,39,2
+single,N > E > D > J > E > B,12,7,21,43,3
+single,N > F > L > J > L,13,8,23,50,6
+single,N > H > A > I > C,13,4,6,31,8
+single,N > L > M > D > O > G,14,6,28,52,4
+single,N > N > I > M,10,8,13,35,4
+single,N > N > M > I > G > H > M,14,7,20,42,1
+single,O > E > O > M > B,11,6,22,40,1
+single,O > H > F > H > I > C > H > J,10,11,13,38,4
+single,O > I > J > H > A > E > L > O > H,11,7,14,34,2
+single,O > I > L > O > H > N,12,6,15,38,5
+single,O > L > K > H,14,7,12,42,9
+single,O > M > E > F > F > C,20,13,16,55,6
+single,O > N > A > K > K,9,7,16,36,4
+single,O > N > D,17,7,17,46,5
+single,O > N > M > L > H > E > E > D,11,9,17,42,5
+single,O > O > F,12,11,14,45,8
+window(ed),A > D > E > B > G > A > I > L > L > K,2,1,3,6,NA
+window(ed),A > F > N > B > J > A > F > F > B > B,2,NA,5,7,NA
+window(ed),A > G > E > N > D > E > K,3,3,NA,6,NA
+window(ed),A > J > I > D > I > G > G > I > K > D,1,1,2,4,NA
+window(ed),A > L > H > D > M,2,2,2,6,NA
+window(ed),A > M > G > H > F > M > H > K,5,1,1,9,2
+window(ed),A > M > N > B > C > D > H > D > B > I,NA,NA,1,2,1
+window(ed),B > A > M > B > E,NA,1,NA,1,NA
+window(ed),B > B > G > N > O > A,3,1,1,5,NA
+window(ed),B > G > I > K > O > I > E > D > N,1,1,1,3,NA
+window(ed),B > K > G,3,1,1,6,1
+window(ed),B > L > D,1,2,1,4,NA
+window(ed),B > L > G > A,1,NA,1,2,NA
+window(ed),B > N > B > K > C,4,1,1,7,1
+window(ed),C > A > I,NA,NA,3,4,1
+window(ed),C > B > B > B > C > M > A,NA,1,NA,1,NA
+window(ed),C > B > J,1,1,3,5,NA
+window(ed),C > D > L,1,1,6,10,2
+window(ed),C > I > L,2,2,1,5,NA
+window(ed),C > K > D > J,4,NA,2,7,1
+window(ed),C > N > B,2,1,2,5,NA
+window(ed),C > N > K > K > B > D > J > F > H > H,3,NA,1,5,1
+window(ed),D > C > K > G,NA,NA,1,1,NA
+window(ed),D > E > M,3,1,1,7,2
+window(ed),D > L > K > F > A,1,4,2,7,NA
+window(ed),D > N > O,2,3,2,7,NA
+window(ed),E > A > K,4,2,4,11,1
+window(ed),E > D > J > F > H > L > L > E > J,1,3,1,5,NA
+window(ed),E > J > J > H > A > E,4,2,3,9,NA
+window(ed),E > K > K > M > L > K > B > O,2,1,1,5,1
+window(ed),E > L > F > K > B > K > H > F > L,NA,NA,NA,1,1
+window(ed),F > A > I > D > L > E,2,NA,2,4,NA
+window(ed),F > H > M > D > A > E > N > L > F > A,2,NA,2,4,NA
+window(ed),F > K > A > M > G > K,2,NA,2,4,NA
+window(ed),G > A > K > I > C > B,4,2,2,8,NA
+window(ed),G > C > E > K > F > J > J > L,3,NA,3,6,NA
+window(ed),G > F > N,2,1,NA,3,NA
+window(ed),G > J > K > L > O,3,1,2,6,NA
+window(ed),G > K > E > K > N,3,NA,3,9,3
+window(ed),G > L > H > D,1,2,2,5,NA
+window(ed),H > F > D > F > K > H > H > A > D > F,4,NA,3,7,NA
+window(ed),H > H > K,4,NA,2,6,NA
+window(ed),H > H > K > J > I > H,1,NA,3,4,NA
+window(ed),H > I > F > A > I > O > A > C,1,NA,2,3,NA
+window(ed),H > K > C,1,1,3,5,NA
+window(ed),H > K > G > J,2,2,3,7,NA
+window(ed),H > K > J > C > J > D > G > G > N > M,1,NA,2,4,1
+window(ed),H > L > E > I > A > D > L > I > J,3,NA,2,5,NA
+window(ed),H > O > B > L > C > H > N > G > H > N,2,2,2,8,2
+window(ed),I > J > E > K > L > K > K,1,2,NA,3,NA
+window(ed),I > M > B > C,1,2,2,5,NA
+window(ed),I > M > G > M > L > A > L > B,1,NA,NA,1,NA
+window(ed),I > N > D > J,1,1,3,6,1
+window(ed),J > F > K > C > C > D > E > E > N,NA,1,1,5,3
+window(ed),J > J > C > A > M > K > C,2,2,1,5,NA
+window(ed),J > N > O > A > L > A > A,4,NA,1,5,NA
+window(ed),K > B > I > L > M > C > M > O > B > G,NA,3,1,6,2
+window(ed),K > B > N > G,1,NA,1,2,NA
+window(ed),K > B > O > I > A > K > E > I > C > N,2,3,2,7,NA
+window(ed),K > G > C > A > H > N > L > J,1,NA,2,3,NA
+window(ed),K > G > E > F > B,3,2,NA,5,NA
+window(ed),K > H > B > N > L > M > K > K > D > G,2,1,2,5,NA
+window(ed),K > J > K > E > F > E > G > D,1,1,2,4,NA
+window(ed),K > M > B > E > A > H > B > J > O > D,1,NA,4,5,NA
+window(ed),K > N > J > D > N > A,NA,1,2,3,NA
+window(ed),K > N > M > D > A > M,3,1,1,7,2
+window(ed),L > A > E > J > E > K > A,3,NA,NA,3,NA
+window(ed),L > B > F > K,2,NA,4,7,1
+window(ed),L > H > J > B > O > M > D > K > H,1,NA,4,5,NA
+window(ed),L > L > J,NA,NA,2,3,1
+window(ed),L > N > M > O,1,NA,1,2,NA
+window(ed),L > O > J > J > O > F > A > F > A,1,2,1,4,NA
+window(ed),L > O > N > K > K,2,2,3,7,NA
+window(ed),M > B > G > B > B > F > O > G,2,NA,2,6,2
+window(ed),M > C > J > G > J > A > G > L > L,2,NA,4,6,NA
+window(ed),M > E > H > J > L > K > I > G > D > B,3,NA,4,9,2
+window(ed),M > E > I > K > E > C > M > A > C,NA,NA,2,2,NA
+window(ed),M > E > M > I > B > F,NA,1,2,3,NA
+window(ed),M > G > A,1,NA,1,2,NA
+window(ed),M > K > D,NA,2,2,6,2
+window(ed),N > B > B > N > D,NA,1,1,3,1
+window(ed),N > B > D > M > A > L,NA,NA,1,1,NA
+window(ed),N > E > B > E > E > D > B > M > H > O,2,1,2,6,1
+window(ed),N > E > D > J > E > B,5,1,3,10,1
+window(ed),N > F > L > J > L,2,1,2,7,2
+window(ed),N > H > A > I > C,1,NA,3,7,3
+window(ed),N > L > M > D > O > G,1,NA,4,5,NA
+window(ed),N > N > I > M,4,2,2,9,1
+window(ed),N > N > M > I > G > H > M,1,NA,4,5,NA
+window(ed),O > E > O > M > B,1,1,2,4,NA
+window(ed),O > H > F > H > I > C > H > J,3,NA,1,4,NA
+window(ed),O > I > J > H > A > E > L > O > H,2,NA,NA,3,1
+window(ed),O > I > L > O > H > N,2,1,2,6,1
+window(ed),O > L > K > H,1,1,5,7,NA
+window(ed),O > M > E > F > F > C,NA,1,1,2,NA
+window(ed),O > N > A > K > K,1,1,2,4,NA
+window(ed),O > N > D,3,2,3,8,NA
+window(ed),O > N > M > L > H > E > E > D,1,NA,1,3,1
+window(ed),O > O > F,4,1,NA,5,NA
