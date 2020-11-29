@@ -124,8 +124,8 @@ const drawLineChart = async () => {
     .range([0, dimensions.boundedWidth])
 
   const lineGenerator = d3.line()
-    .x(d => xScale(xAccessor(d)))
-    .y(d => yScale(yAccessor(d)))
+    .x(d => xScale(xAccessor(d))) // finds scaled x vals
+    .y(d => yScale(yAccessor(d))) // finds scaled y vals
 
   const line = bounds.append("path")
     // feed dataset
@@ -138,8 +138,21 @@ const drawLineChart = async () => {
   const yAxisGenerator = d3.axisLeft()
     .scale(yScale)
 
+  // create "g" element to hold all yaxis elements
+  // use ".call()" to 
+    // 1) prevent saving selection as a var
+    // 2) preserve selection for additional chaining
   const yAxis = bounds.append("g")
-  yAxisGenerator(yAxis)
+    .call(yAxisGenerator)
+
+  // make xaxis
+  const xAxisGenerator = d3.axisBottom()
+    .scale(xScale)
+  const xAxis = bounds.append("g")
+    .call(xAxisGenerator)
+        .style("transform", `translateY(${
+            dimensions.boundedHeight
+        }px)`)
 }
 
 drawLineChart();
