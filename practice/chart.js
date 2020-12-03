@@ -15,7 +15,7 @@ const drawLineChart = async () => {
   const dataset = await d3.json("./nyc_weather_data.json");
 
   //console.log(dataset);
-  console.table(dataset[0]);
+  //console.table(dataset[0]);
 
   // create a yAccessor for plotting y-axis pts
   const yAccessor = (d) => d.temperatureMax;
