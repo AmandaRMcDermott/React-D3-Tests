@@ -31,27 +31,15 @@ const drawSankeyChart = async () => {
       target: dataset2.target,
       value: +dataset2.value,
     });
-
-    graph.nodes = d3.keys(
-      d3
-        .nest()
-        .key(function (dataset2) {
-          return dataset2.source;
-        })
-        .object(graph.nodes)
-    );
-
+    console.log(dataset2);
     // loop through each link replacing the text with its index from node
     graph.links.forEach(function (d, i) {
       graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
       graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
     });
-
-    sankey.nodes(graph.nodes).links(graph.links).layout(32);
   });
 
-  console.log(graph.links);
-  console.log(dataset2);
+  //console.log(graph.links);
 };
 
 drawSankeyChart();
