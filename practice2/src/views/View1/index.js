@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 //import './view1.css';
-import DrawLineChart from "../../charts/chart";
-//import LineChart from '../../charts/LineChart';
+import drawLineChart from "../../charts/myLinechart";
 
 export default class View1 extends Component {
   render() {
-    //const { user } = (width = 1100), (height = 250);
+    const { data } = this.props;
+    console.log(data);
     return (
-      <div id="view4" className="pane">
-        <div className="header">User Acivities</div>
+      <div id="view1" className="pane">
+        <div className="header">testing</div>
         <div style={{ overflowX: "scroll", overflowY: "hidden" }}>
-          <DrawLineChart width={1100} height={250} />
+          <drawLineChart data={data} width={1100} height={250} />
         </div>
       </div>
     );

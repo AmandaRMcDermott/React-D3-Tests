@@ -1,3 +1,4 @@
+import { OmitProps } from "antd/lib/transfer/ListBody";
 import * as d3 from "d3";
 //import React from 'react';
 //import ReactDOM from 'react-dom';
@@ -5,17 +6,25 @@ import * as d3 from "d3";
 //import App from './App';
 //import reportWebVitals from './reportWebVitals';
 
-const DrawLineChart = async () => {
+const drawLineChart = async () => {
   //write your code here
 
   // 1. access the data
   // await is a S keyword that will PAUSE THE EXEC OF A FUNC
   // UNTIL A PROMISE IS RESOLVED (only works with async)
   // just means any code (w/i func) will wait to run until data is defined
-  const dataset = await d3.json("../data/nyc_weather_data.json");
 
-  //console.log(dataset);
-  //console.table(dataset[0]);
+  const dataset = await d3.json("../../data/nyc_weather_data.json");
+
+  /*
+  const draw = (props) => {
+    let data = [];
+    if (props.data !== null) {
+      dataset = _.cloneDeep(props.data);
+    }
+    */
+  console.log(dataset);
+  //console.table(dataset[0]s);
 
   // create a yAccessor for plotting y-axis pts
   const yAccessor = (d) => d.temperatureMax;
@@ -70,7 +79,8 @@ const DrawLineChart = async () => {
   // any mthd that manips current selec -> return same selection
   // 1.1-1.4 above can be rewritten as:
   const wrapper = d3
-    .select("#wrapper")
+    //.select("#wrapper")
+    .select(".vis-linechart")
     .append("svg")
     .attr("width", dimensions.width)
     .attr("height", dimensions.height);
@@ -167,9 +177,9 @@ const DrawLineChart = async () => {
     .append("rect")
     .attr("class", "listening-rect")
     .attr("width", dimensions.boundedWidth)
-    .attr("height", dimensions.boundedHeight);
-  /*.on("mousemove", onMouseMove)
-  .on("mouseleave", onMouseLeave);
+    .attr("height", dimensions.boundedHeight)
+    .on("mousemove", onMouseMove)
+    .on("mouseleave", onMouseLeave);
 
   // tooltip
   const tooltip = d3.select("#tooltip");
@@ -247,8 +257,6 @@ const DrawLineChart = async () => {
     tooltip.style("opacity", 0);
     tooltipCircle.style("opacity", 0);
   }
-
-  */
 };
 
-export default DrawLineChart();
+export default drawLineChart;
