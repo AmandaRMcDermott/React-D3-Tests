@@ -1,26 +1,41 @@
-import React, { Component } from "react";
-//import data1 from "./data/nyc_weather_data.json";
-import data from "./data/index";
+import React, { Component, useEffect, useState } from "react";
+import nycdata from "./data/nyc_data2";
+import data1 from "./data/index";
 //import data from "./data";
+//import nyc_data3 from "../public/data";
+import View1 from "./views/View1";
 import View3 from "./views/View3";
 import { Layout } from "antd";
+import * as d3 from "d3";
 const { Sider, Content } = Layout;
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = data[0];
+
+    this.state = {
+      linedata: data1[0],
+      nyc: nycdata,
+    };
   }
+
   render() {
-    const linedata1 = this.state;
-    console.log(linedata1);
+    const testdata = require("./data/nyc_weather_data.json");
+    //const ha = fetch("../public/data/nyc_data3.csv");
+    //console.log(nyc_data3);
+    const { linedata, nyc } = this.state;
     return (
       <div>
         <Layout style={{ height: 920 }}>
           <Layout>
-            <Content style={{ height: 800 }}>
-              <View3 user={linedata1} />
+            <Content style={{ height: 300 }}>
+              <View3 user={linedata} />
             </Content>
+            <Layout style={{ height: 300 }}>
+              <Content>
+                <View1 />
+              </Content>
+            </Layout>
             <Sider width={300} style={{ backgroundColor: "black" }}></Sider>
           </Layout>
         </Layout>
@@ -28,3 +43,12 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+/*
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      d3.csv("./data/nyc_data3.csv").then((data) => {
+        setData(data);
+      });
+    }, []);
+*/

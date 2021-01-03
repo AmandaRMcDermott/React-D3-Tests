@@ -6,6 +6,7 @@ const draw = (props) => {
   if (props.data !== null) {
     data = _.cloneDeep(props.data.activities);
   }
+  //console.log(data);
   d3.select(".vis-linechart > *").remove();
   let margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = props.width - margin.left - margin.right;

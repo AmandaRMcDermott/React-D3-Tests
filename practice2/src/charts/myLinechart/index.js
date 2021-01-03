@@ -1,16 +1,34 @@
 import React, { Component } from "react";
-import drawLineChart from "./chart";
+import drawlinechart from "./vis";
+import * as d3 from "d3";
+import data from "../../data/nyc_data3.csv";
 
+/*
 export default class LineChart extends Component {
   componentDidMount() {
-    drawLineChart(this.props);
+    drawlinechart(this.props);
   }
 
   componentDidUpdate(preProps) {
-    drawLineChart(this.props);
+    drawlinechart(this.props);
   }
 
   render() {
-    return <div className="vis-linechart" />;
+    return <div className="vis-linechart2" />;
+  }
+}
+*/
+
+export default class LineChart extends Component {
+  componentDidMount() {
+    drawlinechart(this.state);
+  }
+
+  componentDidUpdate(preProps) {
+    drawlinechart(this.state);
+  }
+
+  render() {
+    return <div className="vis-linechart2" />;
   }
 }
