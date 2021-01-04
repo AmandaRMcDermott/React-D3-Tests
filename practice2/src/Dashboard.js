@@ -1,12 +1,12 @@
-import React, { Component, useEffect, useState } from "react";
-import nycdata from "./data/nyc_data2";
-import data1 from "./data/index";
-//import data from "./data";
+import React, { Component } from "react";
+import nycdata from "./data/nyc_weather_data.json";
+import data from "./data";
 //import nyc_data3 from "../public/data";
 import View1 from "./views/View1";
 import View3 from "./views/View3";
 import { Layout } from "antd";
-import * as d3 from "d3";
+//import * as d3 from "d3";
+
 const { Sider, Content } = Layout;
 
 export default class Dashboard extends Component {
@@ -14,29 +14,27 @@ export default class Dashboard extends Component {
     super(props);
 
     this.state = {
-      linedata: data1[0],
+      linedata: data[0],
       nyc: nycdata,
     };
   }
 
   render() {
-    const testdata = require("./data/nyc_weather_data.json");
-    //const ha = fetch("../public/data/nyc_data3.csv");
-    //console.log(nyc_data3);
     const { linedata, nyc } = this.state;
+    //console.log(nyc);
     return (
       <div>
-        <Layout style={{ height: 920 }}>
+        <Layout style={{ height: 1000 }}>
           <Layout>
-            <Content style={{ height: 300 }}>
+            <Content style={{ height: 400 }}>
               <View3 user={linedata} />
             </Content>
-            <Layout style={{ height: 300 }}>
+            <Layout style={{ height: 400 }}>
               <Content>
-                <View1 />
+                <View1 data={nyc} />
               </Content>
             </Layout>
-            <Sider width={300} style={{ backgroundColor: "black" }}></Sider>
+            <Sider width={100} style={{ backgroundColor: "black" }}></Sider>
           </Layout>
         </Layout>
       </div>

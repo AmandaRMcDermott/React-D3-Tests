@@ -6,35 +6,18 @@ import _ from "lodash";
 //import '../src/index.css';
 //import App from './App';
 //import reportWebVitals from './reportWebVitals';
-import dataset from "../../data/nyc_data3.csv";
 
-const drawlinechart = () => {
-  d3.csv(dataset, function (dataset) {
-    console.log(dataset);
-  });
-  /*
 const drawlinechart = (props) => {
   let dataset = [];
   if (props.data !== null) {
-    dataset = _.cloneDeep(props.dataset);
+    dataset = _.cloneDeep(props.data);
   }
-  */
-  //write your code here
 
   // 1. access the data
   // await is a S keyword that will PAUSE THE EXEC OF A FUNC
   // UNTIL A PROMISE IS RESOLVED (only works with async)
   // just means any code (w/i func) will wait to run until data is defined
-
-  //const dataset = await d3.json("../../data/nyc_weather_data.json");
-
-  //console.log(dataset);
-  //console.table(dataset[0]s);
-
-  // create a yAccessor for plotting y-axis pts
   const yAccessor = (d) => d.temperatureMax;
-
-  // xAccessor
   const dateParser = d3.timeParse("%Y-%m-%d");
   const xAccessor = (d) => dateParser(d.date);
 
@@ -49,8 +32,8 @@ const drawlinechart = (props) => {
     margin: {
       top: 15, // small top
       right: 15, // small right to give the chart space
-      bottom: 40, // larger bottom for axes
-      left: 60, // larger left for axes
+      bottom: 30, // larger bottom for axes
+      left: 40, // larger left for axes
     },
   };
 
@@ -59,7 +42,7 @@ const drawlinechart = (props) => {
     dimensions.width - dimensions.margin.left - dimensions.margin.right;
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
-
+  console.log(dimensions.width);
   // use d3.select()
   // three types of css selectors:
   // 1) select all elements w/ class name (.class)
@@ -92,6 +75,148 @@ const drawlinechart = (props) => {
     .attr("width", dimensions.width)
     .attr("height", dimensions.height)
     .append("g");
+
+  const bounds = svg
+    .append("g")
+    .style(
+      "transform",
+      `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`
+    );
+
+  // 4. Create scales
+
+  const yScale = d3
+    .scaleLinear()
+    .domain(d3.extent(dataset, yAccessor))
+    .range([dimensions.boundedHeight, 0]);
+
+  const freezingTemperaturePlacement = yScale(32);
+  const freezingTemperatures = bounds
+    .append("rect")
+    .attr("x", 0)
+    .attr("width", dimensions.boundedWidth)
+    .attr("y", freezingTemperaturePlacement)
+    .attr("height", dimensions.boundedHeight - freezingTemperaturePlacement)
+    .attr("fill", "#e0f3f3");
+
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataset, xAccessor))
+    .range([0, dimensions.boundedWidth]);
+
+  // 5. Draw data
+
+  const lineGenerator = d3
+    .line()
+    .x((d) => xScale(xAccessor(d)))
+    .y((d) => yScale(yAccessor(d)));
+
+  const line = bounds
+    .append("path")
+    .attr("d", lineGenerator(dataset))
+    .attr("fill", "none")
+    .attr("stroke", "#af9358")
+    .attr("stroke-width", 2);
+
+  console.log(line);
+  // 6. Draw peripherals
+
+  const yAxisGenerator = d3.axisLeft().scale(yScale);
+
+  const yAxis = bounds.append("g").call(yAxisGenerator);
+
+  const xAxisGenerator = d3.axisBottom().scale(xScale);
+
+  const xAxis = bounds
+    .append("g")
+    .call(xAxisGenerator)
+    .style("transform", `translateY(${dimensions.boundedHeight}px)`);
+
+  // make listening rectangle
+  const listeningRect = bounds
+    .append("rect")
+    .attr("class", "listening-rect")
+    .attr("width", dimensions.boundedWidth)
+    .attr("height", dimensions.boundedHeight)
+    .on("mousemove", onMouseMove)
+    .on("mouseleave", onMouseLeave);
+
+  // tooltip
+  const tooltip = d3.select("#tooltip");
+
+  // appending a circle to make it more clear which part is hovered over
+  const tooltipCircle = bounds
+    .append("circle")
+    .attr("class", "tooltip-circle")
+    .attr("r", 4)
+    .attr("fill", "white")
+    .attr("stroke", "#af9358")
+    .attr("stroke-width", 2)
+    .style("opacity", 0);
+
+  function onMouseMove() {
+    const mousePosition = d3.mouse(this);
+    //console.log(mousePosition[0]);
+
+    // ".invert()" converts units -> range to the domain
+    const hoveredDate = xScale.invert(mousePosition[0]);
+    //console.log(hoveredDate);
+
+    // get closest data point
+    // "d3.scan()" takes 2 adjacent items in an array and returns numerical vaue
+    // 2 args:
+    // 1) an array (the dataset)
+    // 2) optionl comparator func
+    // first find dist bwt hovered pt and dataset (in abs terms)
+    const getDistanceFromHoveredDate = (d) =>
+      Math.abs(xAccessor(d) - hoveredDate);
+
+    // then compare the two data points using "d3.scan()" comaprator func
+    // creates an array of dist from the hovered pt -> can then find smallest dist
+    const closestIndex = d3.scan(
+      dataset,
+      (a, b) => getDistanceFromHoveredDate(a) - getDistanceFromHoveredDate(b)
+    );
+
+    // grab closest datapt
+    const closestDataPoint = dataset[closestIndex];
+    const closestXValue = xAccessor(closestDataPoint);
+    const closestYValue = yAccessor(closestDataPoint);
+    //console.log(dataset[0]);
+
+    // format date
+    const formatDate = d3.timeFormat("%B %A %-d, %Y");
+    tooltip.select("#date").text(formatDate(closestXValue));
+
+    // format temp
+    const formatTemperature = (d) => `${d3.format(".1f")(d)}&deg;F`;
+    tooltip
+      .select("#temperature")
+      // html ensures degrees is formatted properly
+      .html(formatTemperature(closestYValue));
+
+    // for the circle
+    tooltipCircle
+      .attr("cx", xScale(closestXValue))
+      .attr("cy", yScale(closestYValue))
+      .style("opacity", 1);
+
+    // grab x and y pos
+    const x = xScale(closestXValue) + dimensions.margin.left;
+    const y = yScale(closestYValue) + dimensions.margin.top;
+
+    tooltip.style(
+      "transform",
+      `translate(` + `calc( -50% + ${x}px),` + `calc(-100% + ${y}px)` + `)`
+    );
+
+    tooltip.style("opacity", 1);
+  }
+
+  function onMouseLeave() {
+    tooltip.style("opacity", 0);
+    tooltipCircle.style("opacity", 0);
+  }
 };
 
 export default drawlinechart;

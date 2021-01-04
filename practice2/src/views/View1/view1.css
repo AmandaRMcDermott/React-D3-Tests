@@ -1,4 +1,78 @@
 #view1 {
-  height: 1000px;
+  height: 500px;
   /* background-color: green; */
+}
+
+.listening-rect {
+  fill: transparent;
+}
+
+.y-axis-label {
+  font-size: 1.4em;
+  fill: black;
+  text-anchor: center;
+  transform: rotate(-90deg);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  padding: 5em 1em;
+  font-family: sans-serif;
+}
+
+.tooltip {
+  opacity: 0;
+  position: absolute;
+  top: -14px;
+  left: 0;
+  padding: 0.6em 1em;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  transition: all 0.1s ease-out;
+  pointer-events: none;
+  z-index: 10;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  text-align: center;
+}
+
+.tooltip:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border: 1px solid #ddd;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  transform: translate(-50%, 50%) rotate(45deg);
+  transform-origin: center center;
+  z-index: 10;
+}
+
+.tooltip-date {
+  margin-bottom: 0.2em;
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+.node rect {
+  cursor: move;
+  fill-opacity: 0.9;
+  shape-rendering: crispEdges;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.2;
+}
+
+.link:hover {
+  stroke-opacity: 0.5;
 }

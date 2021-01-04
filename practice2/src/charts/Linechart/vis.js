@@ -6,24 +6,42 @@ const draw = (props) => {
   if (props.data !== null) {
     data = _.cloneDeep(props.data.activities);
   }
-  //console.log(data);
+
+  let dimensions = {
+    width: window.innerWidth * 0.9,
+    height: 400,
+    margin: {
+      top: 15, // small top
+      right: 15, // small right to give the chart space
+      bottom: 100, // larger bottom for axes
+      left: 40, // larger left for axes
+    },
+  };
+  // size of the bounds
+  dimensions.boundedWidth =
+    dimensions.width - dimensions.margin.left - dimensions.margin.right;
+  dimensions.boundedHeight =
+    dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
+
   d3.select(".vis-linechart > *").remove();
-  let margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = props.width - margin.left - margin.right;
-  const height = props.height - margin.top - margin.bottom;
+
   let svg = d3
     .select(".vis-linechart")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", dimensions.width)
+    .attr("height", dimensions.height)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .style(
+      "transform",
+      `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`
+    );
+  //.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   data.forEach(function (d) {
     d.date = d3.timeParse("%Y-%m-%d")(d.date);
     d.count = +d.count;
   });
-
+  console.log(data);
   // Add X axis --> it is a date format
   let x = d3
     .scaleTime()
@@ -32,10 +50,11 @@ const draw = (props) => {
         return d.date;
       })
     )
-    .range([0, width]);
+    .range([0, dimensions.boundedWidth]);
   svg
     .append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .style("transform", `translateY(${dimensions.boundedHeight}px)`)
+    //.attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
   // Add Y axis
@@ -47,7 +66,7 @@ const draw = (props) => {
         return +d.count;
       }),
     ])
-    .range([height, 0]);
+    .range([dimensions.boundedHeight, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
   // Add the line
