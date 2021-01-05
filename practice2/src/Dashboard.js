@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import View1 from "./views/View1";
 import View3 from "./views/View3";
-import data from "./data";
+import { data, sankey_data } from "./data";
 import nycdata from "./data/nyc_weather_data.json";
 //import sankey_data from "./data/sankey_data.csv";
-import sankey_data from "./data";
+//import sankey_data from "./data";
 import { Layout } from "antd";
 //import Papa from "papaparse";
 //import {useTooltip, tooltipContext} from "./useTooltips";
