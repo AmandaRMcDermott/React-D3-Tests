@@ -15,10 +15,6 @@ const { Sider, Content } = Layout;
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
-    //const test = d3.csv(sankey_data).then((response) => {
-    //  console.log(response);
-    //});
-    //console.log(test);
 
     this.state = {
       linedata: data[0],

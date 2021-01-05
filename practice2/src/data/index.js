@@ -22,12 +22,14 @@ function csvJSON(csv) {
   //return result; //JavaScript object
   return JSON.stringify(result); //JSON
 }
+
 //const sankey_data = csvJSON("./sankey_data.csv");
-const sankey_data = d3.csv("./sankey_data.csv").then((response) => {
+
+export const sankey_data = d3.csv("./sankey_data.csv").then((response) => {
   //console.log(response);
 });
 
-const data = [
+export const data = [
   {
     name: "Bob",
     gender: "Male",
@@ -323,5 +325,3 @@ const data = [
     ],
   },
 ];
-
-export { data, sankey_data };
