@@ -42,7 +42,7 @@ const drawlinechart = (props) => {
     dimensions.width - dimensions.margin.left - dimensions.margin.right;
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
-  console.log(dimensions.width);
+
   // use d3.select()
   // three types of css selectors:
   // 1) select all elements w/ class name (.class)
@@ -118,7 +118,6 @@ const drawlinechart = (props) => {
     .attr("stroke", "#af9358")
     .attr("stroke-width", 2);
 
-  console.log(line);
   // 6. Draw peripherals
 
   const yAxisGenerator = d3.axisLeft().scale(yScale);

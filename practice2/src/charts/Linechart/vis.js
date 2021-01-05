@@ -41,7 +41,7 @@ const draw = (props) => {
     d.date = d3.timeParse("%Y-%m-%d")(d.date);
     d.count = +d.count;
   });
-  console.log(data);
+
   // Add X axis --> it is a date format
   let x = d3
     .scaleTime()

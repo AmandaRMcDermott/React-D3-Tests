@@ -11,6 +11,17 @@ export default class LineChart extends Component {
   }
 
   render() {
-    return <div className="vis-linechart2" />;
+    return (
+      <div className="vis-linechart2">
+        <div id="tooltip" className="tooltip">
+          <div className="tooltip-date">
+            <span id="date"></span>
+          </div>
+          <div className="tooltip-temperature">
+            Maximum Temperature: <span id="temperature"></span>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
