@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import sankey_string from "./sankey_string";
 
 //var csv is the CSV file with headers
 function csvJSON(csv) {
@@ -23,13 +24,15 @@ function csvJSON(csv) {
   return JSON.stringify(result); //JSON
 }
 
-//const sankey_data = csvJSON("./sankey_data.csv");
-
-export const sankey_data = d3.csv("./sankey_data.csv").then((response) => {
-  //console.log(response);
+const sankey_data = d3.csvParse(sankey_string, function (d) {
+  return {
+    source: d.source,
+    target: d.target,
+    value: +d.value,
+  };
 });
 
-export const data = [
+const data = [
   {
     name: "Bob",
     gender: "Male",
@@ -325,3 +328,10 @@ export const data = [
     ],
   },
 ];
+const data2 = [
+  {
+    data: [data],
+    sankey_data: [sankey_data],
+  },
+];
+export default data2;

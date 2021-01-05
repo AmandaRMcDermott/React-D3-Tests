@@ -1,0 +1,10 @@
+const sankey_string = `source,target,value
+Barry,Elvis,2
+Frodo,Elvis,2
+Frodo,Sarah,2
+Barry,Alice,2
+Elvis,Sarah,2
+Elvis,Alice,2
+Sarah,Alice,4`;
+
+export default sankey_string;
