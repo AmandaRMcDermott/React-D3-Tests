@@ -18,7 +18,7 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     //console.log(data);
-    console.log(data2[0].sankey_data[0]);
+    //console.log(data2[0].sankey_data[0]);
     this.state = {
       linedata: data2[0].data[0][0],
       nyc: nycdata,
