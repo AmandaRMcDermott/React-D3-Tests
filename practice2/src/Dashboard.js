@@ -54,6 +54,8 @@ export default class Dashboard extends Component {
               <Content>
                 <View1 data={nyc} />
               </Content>
+            </Layout>
+            <Layout style={{ height: 400 }}>
               <Content>
                 <View2 data={sankey} />
               </Content>

@@ -1,19 +1,9 @@
 import * as d3 from "d3";
 import _ from "lodash";
-import { sankey, sankeyLinkHorizontal, s } from "d3-sankey";
-import { format, geoOrthographicRaw } from "d3";
+//import * as sankey from "d3-sankey";
+import { sankey, sankeyLinkHorizontal } from "d3-sankey";
+import { format, linkHorizontal } from "d3";
 
-const SankeyLink = ({ link, color }) => (
-  <path
-    d={sankeyLinkHorizontal()(link)}
-    style={{
-      fill: "none",
-      strokeOpacity: ".3",
-      stroke: color,
-      strokeWidth: Math.max(1, link.width),
-    }}
-  />
-);
 
 const drawsankey = (props) => {
   let data = [];
@@ -38,6 +28,14 @@ const drawsankey = (props) => {
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
+const units = "Widgets"
+
+// format variables
+const formatNumber = d3.format(",.0f"), // zero decimal places
+  formet = function(d) {return formatNumber(d) + " " + units;},
+  color = d3.scaleOrdinal(d3.schemeCategory10)
+  
+
   // append the svg object to the body of the page
   d3.select(".vis-sankey > *").remove();
   const svg = d3
@@ -52,13 +50,11 @@ const drawsankey = (props) => {
     );
 
   const sankeyplot = sankey();
-  sankeyplot.nodeWidth(36).nodePadding(40);
-  console.log(sankeyplot);
 
-  //console.log(sankeyplot);
+  sankeyplot.nodeWidth(36).nodePadding(40).size([dimensions.width, dimensions.height]);
 
-  const path = sankeyplot.link;
-
+  //const path = sankeyLinkHorizontal;
+  //  console.log(path)
   const graph = { nodes: [], links: [] };
 
   data.forEach(function (d) {
@@ -82,11 +78,13 @@ const drawsankey = (props) => {
     graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
     graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
   });
-  console.log(graph);
+
+  //console.log(graph.nodes)
   // loop through each node to make nodes an array of objects instead of an array of strings
   graph.nodes.forEach(function (d, i) {
     graph.nodes[i] = { name: d };
   });
+  //console.log(graph.nodes)
 
   //sankey.nodes(graph.nodes).links(graph.links).layout(32);
 
@@ -98,7 +96,7 @@ const drawsankey = (props) => {
     .enter()
     .append("path")
     .attr("class", "link")
-    .attr("d", path)
+    .attr("d", sankeyLinkHorizontal())
     .style("stroke-width", function (d) {
       return Math.max(1, d.dy);
     })
@@ -111,6 +109,8 @@ const drawsankey = (props) => {
     return d.source.name + " [] " + d.target.name + "\n" + format(d.value);
   });
 
+console.log(link)
+
   const node = svg
     .append("g")
     .selectAll(".node")
@@ -121,7 +121,17 @@ const drawsankey = (props) => {
     .attr("transform", function (d) {
       return "translate(" + d.x + "," + d.y + ")";
     });
-  sankeyplot.re;
+  
+  node.append("rect")
+    .attr("height",function(d){return data.dy})
+    .attr("width", sankey.nodeWidth)
+    .style("fill", function(d){
+      return d.color = color(d.name.replace(/ .*/, ""))
+    })
+    .append("title")
+
+
+  //link.attr("d",path)
   console.log(node);
 };
 

@@ -2,3 +2,14 @@
   height: 500px;
   /* background-color: green; */
 }
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.link{
+  fill:none;
+  stroke: #000000;
+}

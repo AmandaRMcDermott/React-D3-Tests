@@ -90,7 +90,7 @@ const drawlinechart = (props) => {
     .domain(d3.extent(dataset, yAccessor))
     .range([dimensions.boundedHeight, 0]);
 
-  const freezingTemperaturePlacement = yScale(32);
+  const freezingTemperaturePlacement = yScale(38);
   const freezingTemperatures = bounds
     .append("rect")
     .attr("x", 0)
