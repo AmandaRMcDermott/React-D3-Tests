@@ -6,11 +6,6 @@ import { format, linkHorizontal } from "d3";
 
 
 const drawsankey = (props) => {
-  let data = [];
-  if (props.data !== null) {
-    data = _.cloneDeep(props.data);
-  }
-  console.log(data);
 
   let dimensions = {
     width: window.innerWidth * 0.9,
@@ -50,6 +45,12 @@ const formatNumber = d3.format(",.0f"), // zero decimal places
     );
 
   const sankeyplot = sankey();
+  
+  let data = [];
+  if (props.data !== null) {
+    data = _.cloneDeep(props.data);
+  }
+  console.log(data);
 
   sankeyplot.nodeWidth(36).nodePadding(40).size([dimensions.width, dimensions.height]);
 
@@ -103,6 +104,7 @@ const formatNumber = d3.format(",.0f"), // zero decimal places
     .sort(function (a, b) {
       return b.dy - a.dy;
     });
+console
 
   // add the link titles
   link.append("title").text(function (d) {
