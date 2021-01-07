@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 import { sankey, sankeyLinkHorizontal, s } from "d3-sankey";
-import { geoOrthographicRaw } from "d3";
+import { format, geoOrthographicRaw } from "d3";
 
 const SankeyLink = ({ link, color }) => (
   <path
@@ -57,6 +57,8 @@ const drawsankey = (props) => {
 
   //console.log(sankeyplot);
 
+  const path = sankeyplot.link;
+
   const graph = { nodes: [], links: [] };
 
   data.forEach(function (d) {
@@ -89,7 +91,38 @@ const drawsankey = (props) => {
   //sankey.nodes(graph.nodes).links(graph.links).layout(32);
 
   // add in the links
-  const link = svg.append("g").selectAll(".link").data(graph.links);
+  const link = svg
+    .append("g")
+    .selectAll(".link")
+    .data(graph.links)
+    .enter()
+    .append("path")
+    .attr("class", "link")
+    .attr("d", path)
+    .style("stroke-width", function (d) {
+      return Math.max(1, d.dy);
+    })
+    .sort(function (a, b) {
+      return b.dy - a.dy;
+    });
+
+  // add the link titles
+  link.append("title").text(function (d) {
+    return d.source.name + " [] " + d.target.name + "\n" + format(d.value);
+  });
+
+  const node = svg
+    .append("g")
+    .selectAll(".node")
+    .data(graph.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", function (d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+  sankeyplot.re;
+  console.log(node);
 };
 
 export default drawsankey;
