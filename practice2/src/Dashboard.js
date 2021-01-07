@@ -12,6 +12,20 @@ import { Layout } from "antd";
 //import {useTooltip, tooltipContext} from "./useTooltips";
 import * as d3 from "d3";
 
+/*
+If the app doesn't run on Windows, do the following:
+1) Delete nodes_modules
+2) Delete package-lock.json
+3) Add the following chunk to package.json:
+'
+"optionalDependencies": {
+    "fsevents": "^2.0.7"
+}
+'
+4) Run npm i
+5) Run npm start
+*/
+
 const { Sider, Content } = Layout;
 
 export default class Dashboard extends Component {
