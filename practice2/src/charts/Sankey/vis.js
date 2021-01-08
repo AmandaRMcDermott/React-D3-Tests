@@ -57,6 +57,7 @@ const drawsankey = (props) => {
     .nodePadding(40)
     .size([dimensions.width, dimensions.height]);
 
+console.log(sankeyplot)
   //const path = sankeyLinkHorizontal;
   //  console.log(path)
   const graph = { nodes: [], links: [] };
@@ -89,11 +90,70 @@ const drawsankey = (props) => {
     graph.nodes[i] = { name: d };
   });
 
-  //sankey.nodes(graph.nodes).links(graph.links).layout(32);
-  const testfuc = function source(d) {
-    return [d.source.x1, d.y0];
+  //console.log(sankeyplot.update(graph))
+  /*
+  const sankey_link = function() {
+    const curvature = .5;
+ 
+    function link(d) {
+      const x0 = d.source.x + d.source.dx,
+          x1 = d.target.x,
+          xi = d3.interpolateNumber(x0, x1),
+          x2 = xi(curvature),
+          x3 = xi(1 - curvature),
+          y0 = d.source.y + d.sy + d.dy / 2,
+          y1 = d.target.y + d.ty + d.dy / 2;
+      return "M" + x0 + "," + y0
+           + "C" + x2 + "," + y0
+           + " " + x3 + "," + y1
+           + " " + x1 + "," + y1;
+    }
+ 
+    link.curvature = function(_) {
+      if (!arguments.length) return curvature;
+      curvature = +_;
+      return link;
+    };
+ 
+    return link;
   };
-  console.log(testfuc(graph.links));
+*/
+//console.log(graph.links[0].source.x)
+
+
+const datasets2 = [
+  {
+    nodes: [{ name: "a" }, { name: "b" }, { name: "c" }, { name: "d" }],
+    links: [
+      { source: 0, target: 2, value: 0.1 },
+      { source: 0, target: 3, value: 0.1 },
+      { source: 1, target: 3, value: 0.1 }
+    ]
+  },
+  {
+    nodes: [
+      { name: "a" },
+      { name: "b" },
+      { name: "c" },
+      { name: "d" },
+      { name: "e" },
+      { name: "f" },
+      { name: "g" }
+    ],
+    links: [
+      { source: 0, target: 2, value: 0.1 },
+      { source: 0, target: 3, value: 0.1 },
+      { source: 1, target: 3, value: 0.1 },
+      { source: 1, target: 4, value: 0.1 },
+      { source: 4, target: 2, value: 0.1 },
+      { source: 4, target: 5, value: 0.1 }
+    ]
+  }
+];
+console.log(datasets2[0])
+
+  //sankey.nodes(graph.nodes).links(graph.links).layout(32);
+
   // add in the links
   /*
   const link = svg
@@ -123,12 +183,11 @@ const drawsankey = (props) => {
     .attr("stroke-width", function (d) {
       return d.width;
     });
-  console.log(link);
+ 
   // add the link titles
   link.append("title").text(function (d) {
-    //return d.source + " [] " + d.target + "\n" + format(d.value);
+    return d.source + " [] " + d.target + "\n" + format(d.value);
     //return format(d.value);
-    console.log(d.source);
   });
 
   //console.log(link);
@@ -158,7 +217,8 @@ const drawsankey = (props) => {
   node
     .append("rect")
     .attr("height", function (d) {
-      return data.dy;
+      //return data.dy;
+      console.log(d.dy)
     })
     .attr("width", sankey.nodeWidth)
     .style("fill", function (d) {

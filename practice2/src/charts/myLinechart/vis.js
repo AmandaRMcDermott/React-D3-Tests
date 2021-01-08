@@ -66,7 +66,7 @@ const drawlinechart = (props) => {
   // any mthd that selects/creates a new obj -> return new selection
   // any mthd that manips current selec -> return same selection
   // 1.1-1.4 above can be rewritten as:
-  d3.select(".vis-linechart2 > *").remove();
+  //d3.select(".vis-linechart2 > *").remove();
 
   const svg = d3
     //.select("#wrapper")
