@@ -5,11 +5,12 @@
 
 .node rect {
   cursor: move;
-  fill-opacity: .9;
+  fill-opacity: 0.9;
   shape-rendering: crispEdges;
 }
 
-.link{
-  fill:none;
+.link {
+  fill: none;
   stroke: #000000;
+  stroke-opacity: 0.2;
 }

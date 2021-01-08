@@ -3,9 +3,14 @@ import _ from "lodash";
 //import * as sankey from "d3-sankey";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
 import { format, linkHorizontal } from "d3";
-
+import { getKeyThenIncreaseKey } from "antd/lib/message";
 
 const drawsankey = (props) => {
+  let data = [];
+  if (props.data !== null) {
+    data = _.cloneDeep(props.data);
+  }
+  console.log(data);
 
   let dimensions = {
     width: window.innerWidth * 0.9,
@@ -23,13 +28,14 @@ const drawsankey = (props) => {
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
-const units = "Widgets"
+  const units = "Widgets";
 
-// format variables
-const formatNumber = d3.format(",.0f"), // zero decimal places
-  formet = function(d) {return formatNumber(d) + " " + units;},
-  color = d3.scaleOrdinal(d3.schemeCategory10)
-  
+  // format variables
+  const formatNumber = d3.format(",.0f"), // zero decimal places
+    formet = function (d) {
+      return formatNumber(d) + " " + units;
+    },
+    color = d3.scaleOrdinal(d3.schemeCategory10);
 
   // append the svg object to the body of the page
   d3.select(".vis-sankey > *").remove();
@@ -45,14 +51,11 @@ const formatNumber = d3.format(",.0f"), // zero decimal places
     );
 
   const sankeyplot = sankey();
-  
-  let data = [];
-  if (props.data !== null) {
-    data = _.cloneDeep(props.data);
-  }
-  console.log(data);
 
-  sankeyplot.nodeWidth(36).nodePadding(40).size([dimensions.width, dimensions.height]);
+  sankeyplot
+    .nodeWidth(36)
+    .nodePadding(40)
+    .size([dimensions.width, dimensions.height]);
 
   //const path = sankeyLinkHorizontal;
   //  console.log(path)
@@ -85,11 +88,14 @@ const formatNumber = d3.format(",.0f"), // zero decimal places
   graph.nodes.forEach(function (d, i) {
     graph.nodes[i] = { name: d };
   });
-  //console.log(graph.nodes)
 
   //sankey.nodes(graph.nodes).links(graph.links).layout(32);
-
+  const testfuc = function source(d) {
+    return [d.source.x1, d.y0];
+  };
+  console.log(testfuc(graph.links));
   // add in the links
+  /*
   const link = svg
     .append("g")
     .selectAll(".link")
@@ -98,20 +104,34 @@ const formatNumber = d3.format(",.0f"), // zero decimal places
     .append("path")
     .attr("class", "link")
     .attr("d", sankeyLinkHorizontal())
-    .style("stroke-width", function (d) {
+    .attr("stroke-width", function (d) {
       return Math.max(1, d.dy);
     })
     .sort(function (a, b) {
       return b.dy - a.dy;
     });
-console
-
+    */
+  const link = svg
+    .append("g")
+    .attr("fill", "none")
+    .attr("stroke", "#000")
+    .attr("stroke-opacity", 0.2)
+    .selectAll("path")
+    .data(graph.links)
+    .join("path")
+    .attr("d", sankeyLinkHorizontal())
+    .attr("stroke-width", function (d) {
+      return d.width;
+    });
+  console.log(link);
   // add the link titles
   link.append("title").text(function (d) {
-    return d.source.name + " [] " + d.target.name + "\n" + format(d.value);
+    //return d.source + " [] " + d.target + "\n" + format(d.value);
+    //return format(d.value);
+    console.log(d.source);
   });
 
-console.log(link)
+  //console.log(link);
 
   const node = svg
     .append("g")
@@ -122,19 +142,43 @@ console.log(link)
     .attr("class", "node")
     .attr("transform", function (d) {
       return "translate(" + d.x + "," + d.y + ")";
-    });
-  
-  node.append("rect")
-    .attr("height",function(d){return data.dy})
-    .attr("width", sankey.nodeWidth)
-    .style("fill", function(d){
-      return d.color = color(d.name.replace(/ .*/, ""))
     })
-    .append("title")
+    .call(
+      d3
+        .drag()
+        .subject(function (d) {
+          return d;
+        })
+        .on("start", function () {
+          this.parentNode.appendChild(this);
+        })
+        .on("drag", dragmove)
+    );
 
+  node
+    .append("rect")
+    .attr("height", function (d) {
+      return data.dy;
+    })
+    .attr("width", sankey.nodeWidth)
+    .style("fill", function (d) {
+      return (d.color = color(d.name.replace(/ .*/, "")));
+    })
+    .append("title");
 
-  //link.attr("d",path)
-  console.log(node);
+  // the function for moving the nodes
+  function dragmove(d) {
+    d3.select(this).attr(
+      "transform",
+      "translate(" +
+        d.x +
+        "," +
+        (d.y = Math.max(0, Math.min(dimensions.height - d.dy, d3.event.y))) +
+        ")"
+    );
+    sankey.relayout();
+    //link.attr("d", sankeyLinkHorizontal);
+  }
 };
 
 export default drawsankey;
