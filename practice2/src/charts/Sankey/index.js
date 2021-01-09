@@ -3,6 +3,9 @@ import drawsankey from "./vis";
 
 export default class SankeyPlot extends Component {
   componentDidMount() {
+    const script = document.createElement("script");
+    script.src = "./sankey_source.js";
+    document.body.appendChild(script);
     drawsankey(this.props);
   }
 
