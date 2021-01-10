@@ -6,7 +6,7 @@ export default class View3 extends Component {
   render() {
     const { user } = this.props,
       width = 1100,
-      height = 250;
+      height = 450;
 
     return (
       <div id="view3" className="pane">

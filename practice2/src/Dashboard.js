@@ -4,13 +4,8 @@ import View2 from "./views/View2";
 import View3 from "./views/View3";
 import data2 from "./data";
 import nycdata from "./data/nyc_weather_data.json";
-//import sankey_string from "./data";
-//import sankey_data from "./data/sankey_data.csv";
-//import sankey_data from "./data";
+
 import { Layout } from "antd";
-//import Papa from "papaparse";
-//import {useTooltip, tooltipContext} from "./useTooltips";
-import * as d3 from "d3";
 
 /*
 If the app doesn't run on Windows, do the following:
@@ -45,21 +40,17 @@ export default class Dashboard extends Component {
     //console.log(this.state);
     return (
       <div>
-        <Layout style={{ height: 1000 }}>
+        <Layout style={{ height: 1200 }}>
           <Layout>
-            <Content style={{ height: 400 }}>
+            <Content style={{ height: 450 }}>
+              <View2 data={sankey} />
+            </Content>
+            <Content style={{ height: 450 }}>
               <View3 user={linedata} />
             </Content>
-            <Layout style={{ height: 400 }}>
-              <Content>
-                <View1 data={nyc} />
-              </Content>
-            </Layout>
-            <Layout style={{ height: 400 }}>
-              <Content>
-                <View2 data={sankey} />
-              </Content>
-            </Layout>
+            <Content style={{ height: 450 }}>
+              <View1 data={nyc} />
+            </Content>
             <Sider width={100} style={{ backgroundColor: "black" }}></Sider>
           </Layout>
         </Layout>

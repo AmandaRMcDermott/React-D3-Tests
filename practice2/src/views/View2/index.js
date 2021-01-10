@@ -7,7 +7,7 @@ export default class View2 extends Component {
   render() {
     const { data } = this.props,
       width = 100,
-      height = 250;
+      height = 400;
 
     return (
       <div id="view2" className="pane">

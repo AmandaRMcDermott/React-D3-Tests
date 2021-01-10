@@ -13,7 +13,7 @@ const draw = (props) => {
     margin: {
       top: 15, // small top
       right: 15, // small right to give the chart space
-      bottom: 100, // larger bottom for axes
+      bottom: 30, // larger bottom for axes
       left: 40, // larger left for axes
     },
   };
