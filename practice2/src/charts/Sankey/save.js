@@ -1,10 +1,6 @@
 import * as d3 from "d3";
 import { sankey as Sankey, sankeyLinkHorizontal } from "d3-sankey";
 import _ from "lodash";
-//import sankey from "d3-plugins-sankey";
-//import * as d3Sankey from "d3-sankey";
-//import { sankey, sankeyLinkHorizontal } from "d3-sankey";
-//import { format, linkHorizontal } from "d3";
 
 const drawsankey = (props) => {
   let data = [];
@@ -12,18 +8,17 @@ const drawsankey = (props) => {
     data = _.cloneDeep(props.data);
   }
 
-  console.log(data);
-
   let dimensions = {
-    width: window.innerWidth * 0.8,
+    width: window.innerWidth * 0.9,
     height: 400,
     margin: {
       top: 10, // small top
       right: 10, // small right to give the chart space
-      bottom: 100, // larger bottom for axes
-      left: 40, // larger left for axes
+      bottom: 10, // larger bottom for axes
+      left: 10, // larger left for axes
     },
   };
+
   // size of the bounds
   dimensions.boundedWidth =
     dimensions.width - dimensions.margin.left - dimensions.margin.right;
@@ -37,7 +32,7 @@ const drawsankey = (props) => {
     format = function (d) {
       return formatNumber(d) + " " + units;
     },
-    color = d3.scaleOrdinal(d3.schemeCategory10);
+    color = d3.scaleOrdinal(d3.schemeSet3);
 
   // append the svg object to the body of the page
   d3.select(".vis-sankey > *").remove();
@@ -50,31 +45,18 @@ const drawsankey = (props) => {
     .append("g")
     .attr(
       "transform",
-      "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")"
+      "translate(" + dimensions.margin.left + " ," + dimensions.margin.top + ")"
     );
 
   const sankey = Sankey()
-    .nodeWidth(36)
-    .nodePadding(40)
+    .nodeWidth(24)
+    .nodePadding(80)
     .size([dimensions.width, dimensions.height]);
 
-  //const path = sankey.link();
-
-  /*  
-  const svg = d3
-    .select(".vis-sankey")
-    .append("svg")
-    .attr("width", dimensions.width)
-    .attr("height", dimensions.height)
-    .append("g")
-    .style(
-      "transform",
-      `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`
-    );
-*/
-
+  // set up graph style
   const graph = { nodes: [], links: [] };
 
+  //
   data.forEach(function (d) {
     graph.nodes.push({ name: d.source });
     graph.nodes.push({ name: d.target });
@@ -91,44 +73,51 @@ const drawsankey = (props) => {
       })
       .object(graph.nodes)
   );
+
   // loop through each link replacing the text with its index from node
+  // this might be the issue
   /*
   graph.links.forEach(function (d, i) {
     graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
     graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
-  });*/
+  });
+*/
 
-  //console.log(graph.nodes)
   // loop through each node to make nodes an array of objects instead of an array of strings
   graph.nodes.forEach(function (d, i) {
     graph.nodes[i] = { name: d };
+  });
+
+  // Properties for nodes to keep track of whether they are collapsed and how many of their parent nodes are collapsed
+  graph.nodes.forEach(function (d, i) {
+    //graph.nodes[i] = {"name": d};
     graph.nodes[i].collapsing = 0; // count of collapsed parent nodes
     graph.nodes[i].collapsed = false;
     graph.nodes[i].collapsible = false;
   });
 
   sankey.update();
-  console.log(graph);
-  sankey(graph);
 
-  //sankey.nodes(graph.nodes).links(graph.links).layout(32);
+  // links point to the whole source or target node rather than the index bc need source nodes for filtering
+  // set target nodes are collapsible
+  //graph.links.forEach(function (e) {
+  //  return (e.target.collapsible = true);
+  //});
+
+  console.log(graph);
+  //ssankey(graph);
 
   const link = svg
     .append("g")
     .selectAll(".link")
     .data(graph.links)
-    //.attr("fill", "none")
-    //.attr("stroke", "#000")
-    //.attr("stroke-opacity", 0.2)
-    //.selectAll("path")
-    //.data(graph.links)
     .enter()
     .append("path")
-    //.join("path")
     .attr("class", "link")
     .attr("d", sankeyLinkHorizontal())
+    //.attr("stroke-width", function (d) { return d.width; }) // v1 - // Controls width of links
     .attr("stroke-width", function (d) {
-      return d.width;
+      return Math.max(1, d.y0);
     })
     .sort(function (a, b) {
       return b.dy - a.dy;
@@ -147,17 +136,20 @@ const drawsankey = (props) => {
     .enter()
     .append("g")
     .attr("class", "node");
-  //.attr("transform", function (d) {
-  //  return "translate(" + (d.x1 - d.x0) + "," + (d.y1 - d.y0) + ")";
-  //});
 
+  // Add the rectangles for the nodes
   node
     .append("rect")
     .join("rect")
     .attr("x", (d) => d.x0)
     .attr("y", (d) => d.y0)
-    .attr("height", (d) => d.y1 - d.y0)
-    .attr("width", (d) => d.x1 - d.x0)
+    .attr("height", function (d) {
+      return d.y;
+    })
+    //.attr("height", (d) => d.y1 - d.y0)
+    //.attr("height", function (d) {return d.dy;})
+    //.attr("width", (d) => d.x1 - d.x0)
+    .attr("width", sankey.nodeWidth())
     .style("fill", function (d) {
       return (d.color = color(d.name.replace(/ .*/, "")));
     })
@@ -166,8 +158,30 @@ const drawsankey = (props) => {
       return d.name + "\n" + format(d.value);
     });
 
+  // add titles to the node
+  node
+    //.append("text")
+    //.selectAll("text")
+    .append("text")
+    .attr("font-size", 10)
+    //.attr("x", -6)
+    //.attr("y", function (d) {  return d.dy / 2;})
+    .attr("dy", "0.35em")
+    .attr("text-anchor", "end")
+    .attr("transform", "end")
+    .attr("transform", null)
+    .text(function (d) {
+      return d.name;
+    })
+    //.filter(function (d) {return d.x < dimensions.width / 2;})
+    .attr("x", (d) => (d.x0 < dimensions.width / 2 ? d.x1 + 6 : d.x0 - 6))
+    .attr("y", (d) => (d.y1 + d.y0) / 2)
+    .attr("dy", "0.35em")
+    .attr("text-anchor", (d) =>
+      d.x0 < dimensions.width / 2 ? "start" : "end"
+    );
+
   link.attr("d", sankeyLinkHorizontal());
-  //link.attr("d", sankeyLinkHorizontal);
 };
 
 export default drawsankey;

@@ -1,7 +1,7 @@
-import * as d3 from "d3";
+//import * as d3 from "d3";
 import View1 from "./views/View1";
-import logo from "./logo.svg";
-import "./App.css";
+//import logo from "./logo.svg";
+//import "./App.css";
 
 function App() {
   return (
