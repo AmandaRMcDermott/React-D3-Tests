@@ -2,7 +2,6 @@ import * as d3 from "d3";
 //import { sankey as Sankey, sankeyLinkHorizontal } from "d3-sankey";
 import _ from "lodash";
 import { sankey } from "./Helpers";
-// https://github.com/vasturiano/d3-sankey Version 0.4.2.
 
 const drawsankey = (props) => {
   let data = [];
@@ -46,6 +45,7 @@ const drawsankey = (props) => {
     .attr("width", dimensions.width)
     .attr("height", dimensions.height)
     .append("g")
+    .attr("class", "plot")
     .attr(
       "transform",
       "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")"
@@ -113,29 +113,64 @@ const drawsankey = (props) => {
 
   update();
   var nodes, links;
-  console.log(graph);
+  //console.log(graph);
+
+
+  function update2(){
+    update();
+    var nodes = d3.selectAll(".node")
+    .transition().duration(750)
+            .attr('opacity', 1.0)
+            .attr("transform", function (d) {
+              if(d.node == 3){
+                console(d.x, d.y);
+              }
+                  return "translate(" + d.x + "," + d.y + ")";
+              });
+
+    var links = d3.selectAll(".link")
+          .transition().duration(950)
+            .attr('d', path)
+            .attr('opacity', 1.0)
+    
+  }
+
 
   function update() {
     nodes = graph.nodes.filter(function (d) {
       // return nodes with no collapsed parent nodes
       return d.collapsing == 0;
-    });
 
+    });
+console.log(nodes)
     links = graph.links.filter(function (d) {
       // return only links where source and target are visible
       return d.source.collapsing == 0 && d.target.collapsing == 0;
     });
 
+
+
     // Sankey properties
-    Sankey.nodes(nodes).links(links).layout(32);
+    //sankeyGen();
+    Sankey
+    .nodes(nodes)
+    .links(links)
+    .layout(32);
 
     // I need to call the function that renders the sankey, remove and call it again,
     // or the gradient coloring doesn't apply (I don't know why)
+    
     sankeyGen();
     svg.selectAll("g").remove();
+
     Sankey.align("left").layout(32);
+
     sankeyGen();
   }
+
+
+
+/* GENERATE THE GRADIENTS */
 
   function sankeyGen() {
     /* function that will create a unique id for your gradient from a link data object.
@@ -203,9 +238,9 @@ const drawsankey = (props) => {
       .append("path")
       .attr("class", "link")
       .attr("d", path)
-      .style("stroke", function (d) {
+      /*.style("stroke", function (d) {
         return "url(#" + getGradID(d) + ")";
-      })
+      })*/
       //.style("stroke", function(d) {
       //	return d.source.color;
       //})
@@ -234,16 +269,18 @@ const drawsankey = (props) => {
       .attr("class", function (d) {
         return "node " + d.name;
       })
+      //.transition().duration(500)
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
+      /*
     //// Drag the nodes ////
-    /*.call(d3.drag()
+    .call(d3.drag()
               .subject(function(d) { return d; })
               .on("start", function() { this.parentNode.appendChild(this);})
               .on("drag", dragmove)
-            );*/
-
+            );
+*/
     // add the rectangles for the nodes
     node
       .append("rect")
@@ -302,7 +339,10 @@ const drawsankey = (props) => {
 
     // the function for moving the nodes
     function dragmove(d) {
-      d3.select(this).attr(
+      d3.select(this)
+      .transition()
+      .duration(250)
+      .attr(
         "transform",
         "translate(" +
           d.x +
@@ -310,7 +350,7 @@ const drawsankey = (props) => {
           (d.y = Math.max(0, Math.min(dimensions.height - d.dy, d3.event.y))) +
           ")"
       );
-      Sankey.relayout();
+      //Sankey.relayout();
       link.attr("d", path);
     }
 
