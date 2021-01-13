@@ -40,16 +40,16 @@ export default class Dashboard extends Component {
     //console.log(this.state);
     return (
       <div>
-        <Layout style={{ height: 1200 }}>
+        <Layout style={{ height: 1500 }}>
           <Layout>
-            <Content style={{ height: 450 }}>
+            <Content style={{ height: 650 }}>
               <View2 data={sankey} />
             </Content>
             <Content style={{ height: 450 }}>
-              <View3 user={linedata} />
+              <View1 data={nyc} />
             </Content>
             <Content style={{ height: 450 }}>
-              <View1 data={nyc} />
+              <View3 user={linedata} />
             </Content>
             <Sider width={100} style={{ backgroundColor: "black" }}></Sider>
           </Layout>
