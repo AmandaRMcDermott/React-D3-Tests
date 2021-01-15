@@ -206,7 +206,12 @@ const drawlinechart = (props) => {
 
     tooltip.style(
       "transform",
-      `translate(` + `calc( -50% + ${x}px),` + `calc(-100% + ${y}px)` + `)`
+      `translate(` +
+        `calc( -25% + ${x}px),` +
+        `calc(+` +
+        yScale(-120) +
+        `% + ${y}px)` +
+        `)`
     );
 
     tooltip.style("opacity", 1);

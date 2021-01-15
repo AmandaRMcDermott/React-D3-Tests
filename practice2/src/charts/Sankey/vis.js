@@ -10,6 +10,7 @@ const drawsankey = (props) => {
   }
 
   var units = "Widgets";
+  var duration = 0;
 
   let dimensions = {
     width: window.innerWidth * 0.8,
@@ -26,6 +27,15 @@ const drawsankey = (props) => {
     dimensions.width - dimensions.margin.left - dimensions.margin.right;
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
+
+  var resetSizeDown = function () {
+    d3.select("svg")
+      .transition()
+      .duration(duration)
+      .attr("height", dimensions.boundedHeight);
+    svg.attr("height", 700);
+    sankey.size([dimensions.width, dimensions.height]);
+  };
 
   // format variables
 
@@ -111,66 +121,76 @@ const drawsankey = (props) => {
     e.target.collapsible = true;
   });
 
+  ////Sankey.nodes(graph.nodes).links(graph.links).layout(32);
   update();
-  var nodes, links;
+  sankeyGen();
+  var nodes, links, nodesRemove;
+  var defaultPath = { x: 0 };
   //console.log(graph);
 
-
-  function update2(){
+  function update2() {
     update();
-    var nodes = d3.selectAll(".node")
-    .transition().duration(750)
-            .attr('opacity', 1.0)
-            .attr("transform", function (d) {
-              if(d.node == 3){
-                console(d.x, d.y);
-              }
-                  return "translate(" + d.x + "," + d.y + ")";
-              });
+    svg.selectAll("g").remove();
 
-    var links = d3.selectAll(".link")
-          .transition().duration(950)
-            .attr('d', path)
-            .attr('opacity', 1.0)
-    
+    var node = d3
+      .selectAll(".node")
+      .transition()
+      .duration(750)
+      .attr("opacity", 1.0)
+      .attr("transform", function (d) {
+        if (d.node == 3) {
+          console(d.x, d.y);
+        }
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+    var links = d3
+      .selectAll(".link")
+      .transition()
+      .duration(950)
+      .attr("d", path)
+      .attr("opacity", 1.0);
+
+    //sankeyGen();
   }
 
-
   function update() {
+    //Sankey.nodes(graph.nodes).links(graph.links).layout(32);
+
     nodes = graph.nodes.filter(function (d) {
       // return nodes with no collapsed parent nodes
       return d.collapsing == 0;
-
     });
-console.log(nodes)
+    nodesRemove = graph.nodes.filter(function (d) {
+      // return nodes with no collapsed parent nodes
+      return d.collapsing == 1;
+    });
+    //console.log(nodes)
     links = graph.links.filter(function (d) {
       // return only links where source and target are visible
       return d.source.collapsing == 0 && d.target.collapsing == 0;
     });
 
-
+    console.log("Show", nodes);
+    console.log("Hide", nodesRemove);
+    //var node = d3.selectAll(".node");
 
     // Sankey properties
     //sankeyGen();
-    Sankey
-    .nodes(nodes)
-    .links(links)
-    .layout(32);
+    Sankey.nodes(nodes).links(links).layout(32);
 
     // I need to call the function that renders the sankey, remove and call it again,
     // or the gradient coloring doesn't apply (I don't know why)
-    
-    sankeyGen();
-    svg.selectAll("g").remove();
 
-    Sankey.align("left").layout(32);
+    //sankeyGen();
 
+    ////Sankey.align("left").layout(32);
+    ////svg.selectAll("g").remove();
     sankeyGen();
+    //svg.selectAll(".node").remove();
   }
 
-
-
-/* GENERATE THE GRADIENTS */
+  /* GENERATE THE GRADIENTS */
 
   function sankeyGen() {
     /* function that will create a unique id for your gradient from a link data object.
@@ -229,7 +249,7 @@ console.log(nodes)
     ////// LINKS //////
     //
     // ENTER the links
-    console.log(links);
+    //console.log(links);
     var link = svg
       .append("g")
       .selectAll(".link")
@@ -260,6 +280,7 @@ console.log(nodes)
     ////// NODES //////
     //
     // ENTER the nodes
+    /*
     var node = svg
       .append("g")
       .selectAll(".node")
@@ -269,11 +290,148 @@ console.log(nodes)
       .attr("class", function (d) {
         return "node " + d.name;
       })
-      //.transition().duration(500)
+      .attr("visibility", function (d) {
+        return d.collapsing;
+      })
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
-      /*
+*/
+
+    var node = svg.selectAll(".node").data(graph.nodes, function (d) {
+      return d.name;
+    });
+
+    var entering = node.enter().append("g");
+
+    entering
+      .attr("transform", function (d) {
+        try {
+          d.relative =
+            defaultPath.parent.x === d.x
+              ? defaultPath.parent
+              : defaultPath.child;
+        } catch (error) {
+          d.relative = d;
+        }
+        return "translate(" + d.x + "," + d.relative.y + ")";
+      })
+      .attr("class", "node");
+
+    entering.append("title").append("text");
+
+    entering
+      .append("rect")
+      .on("click", function (d) {
+        resetSizeDown();
+        defaultPath = link
+          .filter(function (e) {
+            return e.parent.name == d.name || e.child.name == d.name;
+          })
+          .datum();
+
+        relayout(
+          maindata,
+          (filter = function (e) {
+            var remainingNodes = [],
+              nextNodes = [],
+              allLinks = [];
+
+            var traverse = [
+              {
+                linkType: "parentLinks",
+                nodeType: "child",
+              },
+              {
+                linkType: "childLinks",
+                nodeType: "parent",
+              },
+            ];
+
+            traverse.forEach(function (step) {
+              d[step.linkType].forEach(function (link) {
+                remainingNodes.push(link[step.nodeType]);
+                allLinks.push(link[step.nodeType].name);
+              });
+
+              while (remainingNodes.length) {
+                nextNodes = [];
+                remainingNodes.forEach(function (node) {
+                  node[step.linkType].forEach(function (link) {
+                    nextNodes.push(link[step.nodeType]);
+                    allLinks.push(link[step.nodeType].name);
+                  });
+                });
+                remainingNodes = nextNodes;
+              }
+            });
+
+            var nodeNames = d3.keys(
+              d3
+                .nest()
+                .key(function (d) {
+                  return d;
+                })
+                .map(allLinks)
+            );
+
+            // when changing from 'i' to 'F1-' must address substring as well
+
+            // intended is clicked
+            if (d.name.substring(0, 1) == "1") {
+              return (
+                e.parent == d.name ||
+                (e.child ==
+                  (nodeNames.indexOf(e.child) > -1
+                    ? nodeNames[nodeNames.indexOf(e.child)]
+                    : "") &&
+                  e.parent ==
+                    (nodeNames.indexOf(e.parent) > -1
+                      ? nodeNames[nodeNames.indexOf(e.parent)]
+                      : ""))
+              );
+            }
+
+            // declared is clicked
+            if (d.name.substring(0, 1) == "2") {
+              return e.child == d.name || e.parent == d.name;
+            }
+
+            // degree is clicked
+            if (
+              d.name.substring(0, 1) == "3" ||
+              d.name.substring(0, 1) == "1"
+            ) {
+              return (
+                e.child == d.name ||
+                (e.parent ==
+                  (nodeNames.indexOf(e.parent) > -1
+                    ? nodeNames[nodeNames.indexOf(e.parent)]
+                    : "") &&
+                  e.child ==
+                    (nodeNames.indexOf(e.child) > -1
+                      ? nodeNames[nodeNames.indexOf(e.child)]
+                      : ""))
+              );
+            }
+          })
+        );
+      })
+      .style("fill", function (d) {
+        return (d.color = divisionColors(
+          d.name.substring(5, 2, d.name.length)
+        ));
+      })
+      // d.name.substring(4,2, colors each box by values of 3rd and 4th char (college abbrev);
+      // return d.color = color(d.name.replace(/ .*/, "")); })
+      .style("stroke", function (d) {
+        return d3.rgb(d.color).darker(2);
+      })
+      .attr("height", function (d) {
+        return d.relative.dy;
+      })
+      .style("opacity", 0);
+    /*
     //// Drag the nodes ////
     .call(d3.drag()
               .subject(function(d) { return d; })
@@ -340,21 +498,27 @@ console.log(nodes)
     // the function for moving the nodes
     function dragmove(d) {
       d3.select(this)
-      .transition()
-      .duration(250)
-      .attr(
-        "transform",
-        "translate(" +
-          d.x +
-          "," +
-          (d.y = Math.max(0, Math.min(dimensions.height - d.dy, d3.event.y))) +
-          ")"
-      );
+        .transition()
+        .duration(250)
+        .attr(
+          "transform",
+          "translate(" +
+            d.x +
+            "," +
+            (d.y = Math.max(
+              0,
+              Math.min(dimensions.height - d.dy, d3.event.y)
+            )) +
+            ")"
+        );
       //Sankey.relayout();
       link.attr("d", path);
     }
 
+    /* If node is clicked, update it collapse values */
     node.on("click", click);
+
+    /* CLICK FUNCTION */
     function click(d) {
       if (d3.event.defaultPrevented) return;
       if (d.collapsible) {
@@ -374,8 +538,12 @@ console.log(nodes)
         }
         d.collapsed = !d.collapsed; // toggle state of node
       }
+
+      /* Update with new nodes and links */
       update();
     }
+
+    //update2();
   }
 };
 

@@ -4,14 +4,12 @@
 }
 
 .plot {
-  transition: all 1s ease-out;
 }
 
 .node rect {
   cursor: move;
   fill-opacity: 0.9;
   shape-rendering: crispEdges;
-  transition: all 1s ease-out;
 }
 
 .node rect:hover {
