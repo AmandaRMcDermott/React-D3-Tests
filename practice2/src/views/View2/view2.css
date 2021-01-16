@@ -3,7 +3,8 @@
   /* background-color: green; */
 }
 
-.plot {
+rect.background {
+  fill: white;
 }
 
 .node rect {
