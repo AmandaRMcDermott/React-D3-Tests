@@ -1,13 +1,10 @@
 const sankey_string = `source,target,value
-Barry,Elvis,2
-Frodo,Elvis,2
-Frodo,Sarah1,1
-Barry,Alice1,2
-Elvis,Sarah2,2
-Elvis,Alice1,2
-Sarah2,Alice1,4
-Alice1,Alice2,2,
-Sarah1,Sarah2,1`;
+1 - IM - Barry,2 - BB - Elvis,2
+2 - AC - Elvis,3 - AA - Sarah2,2
+1 - IM - Frodo,2 - BB - Elvis,2
+1 - IM - Frodo,2 - IM - Sarah1,1
+2 - BB - Elvis,3 - AA - Sarah2,2
+2 - IM - Sarah1,3 - AA - Sarah2,1`;
 
 /*`source,target,value
 lead_15,S,300

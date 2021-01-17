@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import View1 from "./views/View1";
 import View2 from "./views/View2";
 import View3 from "./views/View3";
+import View4 from "./views/View4";
 import data2 from "./data";
 import nycdata from "./data/nyc_weather_data.json";
 
@@ -40,10 +41,13 @@ export default class Dashboard extends Component {
     //console.log(this.state);
     return (
       <div>
-        <Layout style={{ height: 1500 }}>
+        <Layout style={{ height: 2000 }}>
           <Layout>
             <Content style={{ height: 650 }}>
               <View2 data={sankey} />
+            </Content>
+            <Content style={{ height: 650 }}>
+              <View4 data={sankey} />
             </Content>
             <Content style={{ height: 450 }}>
               <View1 data={nyc} />
