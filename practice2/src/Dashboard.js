@@ -44,6 +44,7 @@ export default class Dashboard extends Component {
         <Layout style={{ height: 2000 }}>
           <Layout>
             <Content style={{ height: 650 }}>
+              <button id="reset">Reset</button>
               <View2 data={sankey} />
             </Content>
             <Content style={{ height: 650 }}>

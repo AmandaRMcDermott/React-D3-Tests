@@ -289,6 +289,9 @@ const drawsankey = (props) => {
         return color(d.name.replace(/ .*/, ""));
         //	return d3.rgb(d.color).darker(2);
       })
+      .style("stroke", function (d) {
+        return d3.rgb(d.color).darker(2);
+      })
       .append("title")
       .text(function (d) {
         return d.name + "\n" + format(d.value);

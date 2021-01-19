@@ -2,7 +2,6 @@ import * as d3 from "d3";
 //import { sankey as Sankey, sankeyLinkHorizontal } from "d3-sankey";
 import _ from "lodash";
 import { sankey } from "./Helpers";
-//import { quantileSorted, threshold } from "d3-array";
 
 const drawsankey = (props) => {
   let data = [];
@@ -11,7 +10,7 @@ const drawsankey = (props) => {
   }
 
   var units = "Widgets";
-  var duration = 700;
+  var duration = 0;
 
   let dimensions = {
     width: window.innerWidth * 0.8,
@@ -29,6 +28,15 @@ const drawsankey = (props) => {
   dimensions.boundedHeight =
     dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
+  var resetSizeDown = function () {
+    d3.select("svg")
+      .transition()
+      .duration(duration)
+      .attr("height", dimensions.boundedHeight);
+    svg.attr("height", 700);
+    sankey.size([dimensions.width, dimensions.height]);
+  };
+
   // format variables
 
   var formatNumber = d3.format(",.0f"), // zero decimal places
@@ -38,7 +46,7 @@ const drawsankey = (props) => {
     color = d3.scaleOrdinal(d3.schemeSet3);
 
   // append the svg object to the body of the page
-  //d3.select(".vis-sankey > *").remove();
+  d3.select(".vis-sankey > *").remove();
 
   // SVG Canvas
   var svg = d3
@@ -50,31 +58,28 @@ const drawsankey = (props) => {
     .attr(
       "transform",
       "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")"
+    )
+    .style(
+      "transform",
+      `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`
     );
-  ////.style("transform",`translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`);
 
   svg
     .append("rect")
     .attr("class", "background")
     .attr("width", dimensions.width)
-    .attr("height", dimensions.height)
-    .on("click", reloadPage);
+    .attr("height", dimensions.height);
 
   var linkset = svg.append("g").attr("id", "linkSet");
-
-  var state;
-
-  //console.log(linkset);
+  console.log(linkset);
 
   // the names of the columns that are used in the sankey
-
   var nodeLabel = ["targetDiv", "sourceDiv"];
   var nodeNames = ["target", "source"];
   var countName = "value";
   var lastData = [];
 
-  //defaultPath = { x: 0 };
-  var defaultPath = {};
+  var defaultPath = { x: 0 };
 
   // for gradient coloring
   var defs = svg.append("defs");
@@ -91,75 +96,34 @@ const drawsankey = (props) => {
     var data = maindata.filter(filter);
 
     var graph = formatData(data);
-    //console.log(graph);
-
+    console.log(graph);
     // make the sankey data
     var Sankey = sankey()
-      .nodeWidth(42)
-      .nodePadding(8)
-      .size([dimensions.width - 200, dimensions.height - 200])
-      //.sort(null);
+      .nodeWidth(20)
+      .nodePadding(40)
+      .size([dimensions.width - 200, dimensions.height])
       .align("left");
 
-    Sankey.nodes(graph.nodes).links(graph.links).layout(12);
+    Sankey.nodes(graph.nodes).links(graph.links).layout(32);
 
     var path = Sankey.link();
-
-    var linkColor = d3
-      .scaleLog()
-      .domain([0.1, 1, 10])
-      .range(["red", "grey", "blue"]);
 
     /// linkColor
     var link = linkset.selectAll(".link").data(graph.links, function (d) {
       return d.source.name + "-" + d.target.name;
     });
 
-    //console.log(path(graph.links[0]));
-
-    /* RESET CANVAS SIZE */
-    var resetSizeDown = function () {
-      d3.select("svg")
-        .transition()
-        .duration(duration)
-        .attr("height", dimensions.boundedHeight);
-      svg.attr("height", 700);
-      Sankey.size([dimensions.width, dimensions.height]);
-    };
-
     link
       .enter()
       .append("path")
-      .style("stroke", function (d) {
-        return linkColor(d.diff);
-      })
+      //.style("stroke", function (d) {return linkColor(d.diff);})
       .attr("class", "link")
       .attr("d", function (d) {
         try {
-          return;
-          //d;
-          path(
-            //console.log((defaultPath = d))
-            (defaultPath = d)
-          );
+          return path(defaultPath);
         } catch (e) {
           return path(d);
-          //console.log(d.source.x);
         }
-      })
-      .style("opacity", 0)
-      .style("stroke-width", function (d) {
-        //return Math.max(1, defaultPath.dy);
-        //console.log(d.dy);
-        return (defaultPath.dy = d.dy);
-        //return Math.max(1, defaultPath.dy);
-      })
-      // .sort(function (a, b) {
-      //  return b.dy - a.dy;
-      //})
-      .append("title")
-      .text(function (d) {
-        return d.source.name + " -> " + d.target.name + "\n" + format(d.value);
       });
 
     link
@@ -170,9 +134,7 @@ const drawsankey = (props) => {
       .style("stroke-width", function (d) {
         return Math.max(1, d.dy);
       });
-    //.sort(function (a, b) {
-    //  return b.dy - a.dy;
-    //});
+    //.sort(function (a, b) {return b.dy - a.dy})
 
     link.exit().remove();
 
@@ -184,28 +146,18 @@ const drawsankey = (props) => {
     var entering = node.enter().append("g");
 
     entering
-      //.data(graph)
       .attr("transform", function (d) {
         try {
           d.relative =
             defaultPath.source.x === d.x
               ? defaultPath.source
               : defaultPath.target;
-          console.log((d.relative = defaultPath.source));
         } catch (error) {
           d.relative = d;
         }
         return "translate(" + d.x + "," + d.relative.y + ")";
-        //console.log(d.relative.y);
       })
       .attr("class", "node");
-
-    entering
-      .append("title")
-      .append("text")
-      .text(function (d) {
-        return d.name + "\n" + format(d.value);
-      });
 
     entering
       .append("rect")
@@ -214,11 +166,9 @@ const drawsankey = (props) => {
         defaultPath = link
           .filter(function (e) {
             return e.source.name == d.name || e.target.name == d.name;
-
-            //console.log(e.source.name == d.name);
           })
-          .data(defaultPath);
-        //console.log(defaultPath);
+          .datum();
+
         redraw(
           maindata,
           (filter = function (e) {
@@ -241,11 +191,8 @@ const drawsankey = (props) => {
               d[step.linkType].forEach(function (link) {
                 remainingNodes.push(link[step.nodeType]);
                 allLinks.push(link[step.nodeType].name);
-
-                //console.log(remainingNodes);
               });
 
-              //console.log(d);
               while (remainingNodes.length) {
                 nextNodes = [];
                 remainingNodes.forEach(function (node) {
@@ -255,55 +202,24 @@ const drawsankey = (props) => {
                   });
                 });
                 remainingNodes = nextNodes;
-                //console.log(nextNodes);
               }
             });
-            console.log(d);
+
             var nodeNames = d3.keys(
               d3
                 .nest()
                 .key(function (d) {
-                  return d.name;
+                  return d;
                 })
-                .object(graph.nodes)
+                .map(allLinks)
             );
-            /*
-            var nodeNames = d3.keys(
-              d3.nest().key(function (d) {
-                return d.name;
-                console.log(d);
-              })
-              .map(allLinks)
-          
-            
-            );
-            */
-            //console.log(d);
-            //console.log(nodeNames[nodeNames.indexOf(e.target)]);
+
             // when changing from 'i' to 'F1-' must address substring as well
 
-            // NODE IN FIRST COLUMN IS CLICKED;
-
+            // intended is clicked
             if (d.name.substring(0, 1) == "1") {
-              console.log(d.name);
-              console.log(nodeNames[nodeNames.indexOf(e.target)]);
               return (
-                e.source == d.name /*|| e.target==d.name */ ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
-            // NODE IN SECOND COLUMN IS CLICKED;
-
-            if (d.name.substring(0, 1) == "2") {
-              return (
-                e.source == d.name /*|| e.target==d.name */ ||
+                e.source == d.name ||
                 (e.target ==
                   (nodeNames.indexOf(e.target) > -1
                     ? nodeNames[nodeNames.indexOf(e.target)]
@@ -315,15 +231,12 @@ const drawsankey = (props) => {
               );
             }
 
-            /*
             // declared is clicked
             if (d.name.substring(0, 1) == "2") {
-              //console.log(d.name);
               return e.target == d.name || e.source == d.name;
             }
-*/
+
             // degree is clicked
-            console.log(allLinks);
             if (
               d.name.substring(0, 1) == "3" ||
               d.name.substring(0, 1) == "1"
@@ -339,51 +252,33 @@ const drawsankey = (props) => {
                       ? nodeNames[nodeNames.indexOf(e.target)]
                       : ""))
               );
-              console.log(e.target);
             }
           })
         );
       })
-
       .style("fill", function (d) {
-        return (d.color = color(d.name.replace(/ .*/, "")));
+        return (d.color = divisionColors(
+          d.name.substring(5, 2, d.name.length)
+        ));
       })
       .style("stroke", function (d) {
         return d3.rgb(d.color).darker(2);
       })
       .attr("height", function (d) {
         return d.relative.dy;
-        //console.log(d.x);
       })
-      .attr("width", Sankey.nodeWidth())
-      .style("opacity", 1);
-
-    // Scale for text
-    /*
-    var graphValues = new Array(graph.nodes.length - 1);
-    for (var i = 0; i <= graph.nodes.length - 1; i++) {
-      graphValues[i] = graph.nodes[i].value;
-    }
-    var textScale = d3
-      .scaleLinear()
-      .domain([d3.min(graphValues), d3.max(graphValues)])
-      .range([10, 20]);
-
-    */
+      .style("opacity", 0);
 
     entering
       .append("text")
-      //.style("font-size", function (d) {
-      //  return textScale(d.value);
-      //})
       .attr("class", "label")
       .attr("x", -6)
       .attr("dy", ".35em")
-      .attr("text-anchor", "start")
+      .attr("text-anchor", "end")
       .attr("font-size", "11px")
       .attr("transform", null)
       .text(function (d) {
-        return d.name + " " + 100 * (d.value / sum) + "%";
+        return d.name;
       })
       .filter(function (d) {
         return d.x < dimensions.width / 2;
@@ -396,7 +291,6 @@ const drawsankey = (props) => {
       .duration(duration)
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
-        //console.log(d);
       });
 
     // Add the node rectangles
@@ -407,9 +301,8 @@ const drawsankey = (props) => {
       .style("opacity", 1)
       .attr("height", function (d) {
         return d3.max([2, this.parentNode.__data__.dy]);
-        //console.log(this.parentNode.__data__.dy);
       })
-      .attr("width", Sankey.nodeWidth());
+      .attr("width", Sankey.nodeWith);
 
     d3.selectAll("text.label")
       .transition()
@@ -419,39 +312,32 @@ const drawsankey = (props) => {
       });
 
     node.exit().remove();
-    //console.log(node);
+
+    /* RESET CANVAS SIZE */
+    var resetSizeDown = function () {
+      d3.select("svg")
+        .transition()
+        .duration(duration)
+        .attr("height", dimensions.boundedHeight);
+      svg.attr("height", 700);
+      Sankey.size([dimensions.width, dimensions.height]);
+    };
+
+    duration = 7000;
   };
 
-  var starts = d3.set(
-    data.map(function (d) {
-      return d.source.substring(4, 1, d.source.length);
-    })
-  );
+  //color = d3.scaleOrdinal(d3.schemeSet3);
 
-  var colors = d3.scaleOrdinal(d3.schemeSet3);
-
-  var sum = d3.sum(
-    data.map(function (d) {
-      return d.value;
-    })
-  );
-
-  /* DRAW THE SANKEY */
   redraw(data);
 
-  //console.log(redraw(data));
+  console.log(redraw(data));
 
   // for gradient coloring
   //var defs = svg.append("defs");
 
-  function reloadPage() {
-    document.location.reload();
-  }
-
   /* FORMAT DATA */
   function formatData(data) {
     // Read data
-
     // Define graph
     var graph = { nodes: [], links: [] };
     // Arrange .csv data file
@@ -460,11 +346,7 @@ const drawsankey = (props) => {
       graph.nodes.push({ label: d.targetDiv });
       graph.nodes.push({ name: d.source });
       graph.nodes.push({ name: d.target });
-      graph.links.push({
-        source: d.source,
-        target: d.target,
-        value: +d.value,
-      });
+      graph.links.push({ source: d.source, target: d.target, value: +d.value });
     });
 
     // return only the distinct / unique nodes
@@ -482,7 +364,7 @@ const drawsankey = (props) => {
       graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
       graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
     });
-    //console.log(graph.links[0]);
+    console.log(graph.links[0]);
     //now loop through each node to make nodes an array of objects
     // rather than an array of strings
     graph.nodes.forEach(function (d, i) {
@@ -513,15 +395,88 @@ const drawsankey = (props) => {
     return graph;
   }
 
-  /* GRAB THE BUTTON AND SETUP AN ACTION */
-  document.getElementById("reset").addEventListener("click", reset);
+  /* RESET CANVAS SIZE */
+  var resetSizeDown = function () {
+    d3.select("svg")
+      .transition()
+      .duration(duration)
+      .attr("height", dimensions.boundedHeight);
+    svg.attr("height", 700);
+    sankey.size([dimensions.width, dimensions.height]);
+  };
 
-  /* RESET SANKEY WHEN CLICKED */
-  function reset() {
-    redraw(data, function (d) {
-      return true;
-    });
+  ////Sankey.nodes(graph.nodes).links(graph.links).layout(32);
+  ////update();
+  ////sankeyGen();
+  //var nodes, links, nodesRemove;
+
+  //console.log(graph);
+
+  /*
+  function update2() {
+    update();
+    svg.selectAll("g").remove();
+
+    var node = d3
+      .selectAll(".node")
+      .transition()
+      .duration(750)
+      .attr("opacity", 1.0)
+      .attr("transform", function (d) {
+        if (d.node == 3) {
+          console(d.x, d.y);
+        }
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+    var links = d3
+      .selectAll(".link")
+      .transition()
+      .duration(950)
+      .attr("d", path)
+      .attr("opacity", 1.0);
+
+    //sankeyGen();
   }
+
+
+  function update() {
+    //Sankey.nodes(graph.nodes).links(graph.links).layout(32);
+
+    nodes = graph.nodes.filter(function (d) {
+      // return nodes with no collapsed parent nodes
+      return d.collapsing == 0;
+    });
+    nodesRemove = graph.nodes.filter(function (d) {
+      // return nodes with no collapsed parent nodes
+      return d.collapsing == 1;
+    });
+    //console.log(nodes)
+    links = graph.links.filter(function (d) {
+      // return only links where source and target are visible
+      return d.source.collapsing == 0 && d.target.collapsing == 0;
+    });
+
+    console.log("Show", nodes);
+    console.log("Hide", nodesRemove);
+    //var node = d3.selectAll(".node");
+
+    // Sankey properties
+    //sankeyGen();
+    Sankey.nodes(nodes).links(links).layout(32);
+
+    // I need to call the function that renders the sankey, remove and call it again,
+    // or the gradient coloring doesn't apply (I don't know why)
+
+    //sankeyGen();
+
+    ////Sankey.align("left").layout(32);
+    ////svg.selectAll("g").remove();
+    sankeyGen();
+    //svg.selectAll(".node").remove();
+  }
+  */
+  /* GENERATE THE GRADIENTS */
 };
 
 export default drawsankey;

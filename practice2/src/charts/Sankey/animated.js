@@ -209,7 +209,7 @@ var relayout = function (maindata, filter) {
               remainingNodes.push(link[step.nodeType]);
               allLinks.push(link[step.nodeType].name);
             });
-
+            console.log(traverse);
             while (remainingNodes.length) {
               nextNodes = [];
               remainingNodes.forEach(function (node) {
@@ -333,12 +333,14 @@ var relayout = function (maindata, filter) {
   //longer durations for all the later things.
   duration = 2000;
 };
+
 // load the data
 d3.csv("Applicants1.csv", function (error, data) {
   var dat = data;
   // industries = d3.set(dat.map(function(d) {return d.parent.split("-")[0];})).values();
   // industryColors = d3.scale.category20().domain(industries);
 
+  
   depts = d3
     .set(
       dat.map(function (d) {
