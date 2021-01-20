@@ -258,7 +258,7 @@ const drawsankey = (props) => {
                 //console.log(nextNodes);
               }
             });
-            console.log(d);
+            //console.log(d);
             var nodeNames = d3.keys(
               d3
                 .nest()
@@ -286,7 +286,8 @@ const drawsankey = (props) => {
 
             if (d.name.substring(0, 1) == "1") {
               console.log(d.name);
-              console.log(nodeNames[nodeNames.indexOf(e.target)]);
+              console.log(nodeNames.indexOf(e.target));
+              console.log(nodeNames.indexOf(e.source));
               return (
                 e.source == d.name /*|| e.target==d.name */ ||
                 (e.target ==
@@ -299,31 +300,37 @@ const drawsankey = (props) => {
                       : ""))
               );
             }
-            // NODE IN SECOND COLUMN IS CLICKED;
+            console.log(e.source)
 
-            if (d.name.substring(0, 1) == "2") {
-              return (
-                e.source == d.name /*|| e.target==d.name */ ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
 
-            /*
+            
             // declared is clicked
             if (d.name.substring(0, 1) == "2") {
               //console.log(d.name);
               return e.target == d.name || e.source == d.name;
             }
-*/
+
+            // declared is clicked
+            if (d.name.substring(0, 1) == "3") {
+              //console.log(d.name);
+              return e.target == d.name || e.source == d.name;
+            }
+            // declared is clicked
+            if (d.name.substring(0, 1) == "4") {
+              //console.log(d.name);
+              return e.target == d.name || e.source == d.name ||               
+              (e.child ==
+                (nodeNames.indexOf(e.child) > -1
+                  ? nodeNames[nodeNames.indexOf(e.child)]
+                  : "") &&
+                e.parent ==
+                  (nodeNames.indexOf(e.parent) > -1
+                    ? nodeNames[nodeNames.indexOf(e.parent)]
+                    : ""))
+            }
             // degree is clicked
             console.log(allLinks);
+            /*
             if (
               d.name.substring(0, 1) == "3" ||
               d.name.substring(0, 1) == "1"
@@ -340,8 +347,9 @@ const drawsankey = (props) => {
                       : ""))
               );
               console.log(e.target);
-            }
+            }*/
           })
+          
         );
       })
 
@@ -439,7 +447,7 @@ const drawsankey = (props) => {
   /* DRAW THE SANKEY */
   redraw(data);
 
-  //console.log(redraw(data));
+  console.log(redraw(data));
 
   // for gradient coloring
   //var defs = svg.append("defs");
