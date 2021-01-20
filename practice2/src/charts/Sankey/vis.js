@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 //import { sankey as Sankey, sankeyLinkHorizontal } from "d3-sankey";
-import _ from "lodash";
+import _, { round } from "lodash";
 import { sankey } from "./Helpers";
 //import { quantileSorted, threshold } from "d3-array";
 
@@ -136,12 +136,7 @@ const drawsankey = (props) => {
       .attr("class", "link")
       .attr("d", function (d) {
         try {
-          return;
-          //d;
-          path(
-            //console.log((defaultPath = d))
-            (defaultPath = d)
-          );
+          return path((defaultPath = d));
         } catch (e) {
           return path(d);
           //console.log(d.source.x);
@@ -214,8 +209,6 @@ const drawsankey = (props) => {
         defaultPath = link
           .filter(function (e) {
             return e.source.name == d.name || e.target.name == d.name;
-
-            //console.log(e.source.name == d.name);
           })
           .data(defaultPath);
         //console.log(defaultPath);
@@ -245,7 +238,7 @@ const drawsankey = (props) => {
                 //console.log(remainingNodes);
               });
 
-              //console.log(d);
+              console.log(d);
               while (remainingNodes.length) {
                 nextNodes = [];
                 remainingNodes.forEach(function (node) {
@@ -258,15 +251,17 @@ const drawsankey = (props) => {
                 //console.log(nextNodes);
               }
             });
+            console.log(nextNodes);
             //console.log(d);
             var nodeNames = d3.keys(
               d3
                 .nest()
                 .key(function (d) {
-                  return d.name;
+                  return d;
                 })
-                .object(graph.nodes)
+                .object(allLinks)
             );
+            console.log(allLinks);
             /*
             var nodeNames = d3.keys(
               d3.nest().key(function (d) {
@@ -285,9 +280,9 @@ const drawsankey = (props) => {
             // NODE IN FIRST COLUMN IS CLICKED;
 
             if (d.name.substring(0, 1) == "1") {
-              console.log(d.name);
-              console.log(nodeNames.indexOf(e.target));
-              console.log(nodeNames.indexOf(e.source));
+              //console.log(d.name);
+              //console.log(nodeNames.indexOf(e.target));
+              //console.log(nodeNames.indexOf(e.source));
               return (
                 e.source == d.name /*|| e.target==d.name */ ||
                 (e.target ==
@@ -300,36 +295,70 @@ const drawsankey = (props) => {
                       : ""))
               );
             }
-            console.log(e.source)
+            //console.log(e.source);
 
-
-            
             // declared is clicked
             if (d.name.substring(0, 1) == "2") {
-              //console.log(d.name);
-              return e.target == d.name || e.source == d.name;
+              console.log(
+                "Target",
+                nodeNames.indexOf(e.target) > -1
+                  ? nodeNames[nodeNames.indexOf(e.target)]
+                  : ""
+              );
+              console.log(
+                "Source",
+                nodeNames.indexOf(e.source) > -1
+                  ? nodeNames[nodeNames.indexOf(e.source)]
+                  : ""
+              );
+
+              return (
+                e.source == d.name ||
+                e.target == d.name ||
+                (e.target ==
+                  (nodeNames.indexOf(e.target) > -1
+                    ? nodeNames[nodeNames.indexOf(e.target)]
+                    : "") &&
+                  e.source ==
+                    (nodeNames.indexOf(e.source) > -1
+                      ? nodeNames[nodeNames.indexOf(e.source)]
+                      : ""))
+              );
             }
 
             // declared is clicked
             if (d.name.substring(0, 1) == "3") {
               //console.log(d.name);
-              return e.target == d.name || e.source == d.name;
+              return (
+                e.source == d.name ||
+                e.target == d.name ||
+                (e.target ==
+                  (nodeNames.indexOf(e.target) > -1
+                    ? nodeNames[nodeNames.indexOf(e.target)]
+                    : "") &&
+                  e.source ==
+                    (nodeNames.indexOf(e.source) > -1
+                      ? nodeNames[nodeNames.indexOf(e.source)]
+                      : ""))
+              );
             }
             // declared is clicked
             if (d.name.substring(0, 1) == "4") {
-              //console.log(d.name);
-              return e.target == d.name || e.source == d.name ||               
-              (e.child ==
-                (nodeNames.indexOf(e.child) > -1
-                  ? nodeNames[nodeNames.indexOf(e.child)]
-                  : "") &&
-                e.parent ==
-                  (nodeNames.indexOf(e.parent) > -1
-                    ? nodeNames[nodeNames.indexOf(e.parent)]
-                    : ""))
+              return (
+                e.source == d.name ||
+                e.target == d.name ||
+                (e.target ==
+                  (nodeNames.indexOf(e.target) > -1
+                    ? nodeNames[nodeNames.indexOf(e.target)]
+                    : "") &&
+                  e.source ==
+                    (nodeNames.indexOf(e.source) > -1
+                      ? nodeNames[nodeNames.indexOf(e.source)]
+                      : ""))
+              );
             }
             // degree is clicked
-            console.log(allLinks);
+            //console.log(allLinks);
             /*
             if (
               d.name.substring(0, 1) == "3" ||
@@ -349,7 +378,6 @@ const drawsankey = (props) => {
               console.log(e.target);
             }*/
           })
-          
         );
       })
 
@@ -391,7 +419,7 @@ const drawsankey = (props) => {
       .attr("font-size", "11px")
       .attr("transform", null)
       .text(function (d) {
-        return d.name + " " + 100 * (d.value / sum) + "%";
+        return d.name + " " + round(100 * (d.value / sum), 2) + "%";
       })
       .filter(function (d) {
         return d.x < dimensions.width / 2;
@@ -526,9 +554,7 @@ const drawsankey = (props) => {
 
   /* RESET SANKEY WHEN CLICKED */
   function reset() {
-    redraw(data, function (d) {
-      return true;
-    });
+    redraw(data);
   }
 };
 
