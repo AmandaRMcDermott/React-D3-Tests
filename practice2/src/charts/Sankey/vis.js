@@ -57,8 +57,8 @@ const drawsankey = (props) => {
     .append("rect")
     .attr("class", "background")
     .attr("width", dimensions.width)
-    .attr("height", dimensions.height)
-    .on("click", reloadPage);
+    .attr("height", dimensions.height);
+  //.on("click", reloadPage);
 
   var linkset = svg.append("g").attr("id", "linkSet");
 
@@ -149,9 +149,9 @@ const drawsankey = (props) => {
         return (defaultPath.dy = d.dy);
         //return Math.max(1, defaultPath.dy);
       })
-      // .sort(function (a, b) {
-      //  return b.dy - a.dy;
-      //})
+      .sort(function (a, b) {
+        return b.dy - a.dy;
+      })
       .append("title")
       .text(function (d) {
         return d.source.name + " -> " + d.target.name + "\n" + format(d.value);
@@ -160,7 +160,7 @@ const drawsankey = (props) => {
     link
       .transition()
       .duration(duration)
-      .style("opacity", 0.9)
+      .style("opacity", 0.65)
       .attr("d", path)
       .style("stroke-width", function (d) {
         return Math.max(1, d.dy);
@@ -186,7 +186,7 @@ const drawsankey = (props) => {
             defaultPath.source.x === d.x
               ? defaultPath.source
               : defaultPath.target;
-          console.log((d.relative = defaultPath.source));
+          //console.log((d.relative = defaultPath.source));
         } catch (error) {
           d.relative = d;
         }
@@ -205,12 +205,20 @@ const drawsankey = (props) => {
     entering
       .append("rect")
       .on("click", function (d) {
-        resetSizeDown();
+        //resetSizeDown();
         defaultPath = link
           .filter(function (e) {
             return e.source.name == d.name || e.target.name == d.name;
+            //console.log(e.source.name == d.name || e.target.name == d.name);
           })
-          .data(defaultPath);
+          .datum(defaultPath);
+
+        console.log(
+          link.filter(function (e) {
+            return e.source.name;
+          })
+        );
+
         //console.log(defaultPath);
         redraw(
           maindata,
@@ -238,7 +246,7 @@ const drawsankey = (props) => {
                 //console.log(remainingNodes);
               });
 
-              console.log(d);
+              //console.log(d);
               while (remainingNodes.length) {
                 nextNodes = [];
                 remainingNodes.forEach(function (node) {
@@ -251,7 +259,7 @@ const drawsankey = (props) => {
                 //console.log(nextNodes);
               }
             });
-            console.log(nextNodes);
+            //console.log(nextNodes);
             //console.log(d);
             var nodeNames = d3.keys(
               d3
@@ -261,7 +269,7 @@ const drawsankey = (props) => {
                 })
                 .object(allLinks)
             );
-            console.log(allLinks);
+            //console.log(allLinks);
             /*
             var nodeNames = d3.keys(
               d3.nest().key(function (d) {
@@ -299,7 +307,7 @@ const drawsankey = (props) => {
 
             // declared is clicked
             if (d.name.substring(0, 1) == "2") {
-              console.log(
+              /*console.log(
                 "Target",
                 nodeNames.indexOf(e.target) > -1
                   ? nodeNames[nodeNames.indexOf(e.target)]
@@ -311,7 +319,7 @@ const drawsankey = (props) => {
                   ? nodeNames[nodeNames.indexOf(e.source)]
                   : ""
               );
-
+*/
               return (
                 e.source == d.name ||
                 e.target == d.name ||
@@ -550,11 +558,13 @@ const drawsankey = (props) => {
   }
 
   /* GRAB THE BUTTON AND SETUP AN ACTION */
-  document.getElementById("reset").addEventListener("click", reset);
+  document.getElementById("reset").addEventListener("click", reloadPage);
 
   /* RESET SANKEY WHEN CLICKED */
   function reset() {
-    redraw(data);
+    redraw(data, function (d) {
+      return true;
+    });
   }
 };
 
