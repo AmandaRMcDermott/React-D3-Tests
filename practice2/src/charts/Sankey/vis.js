@@ -76,7 +76,7 @@ const drawsankey = (props) => {
   //defaultPath = { x: 0 };
   var defaultPath = {};
 
-  // for gradient coloring
+  // for gradient coloring//
   var defs = svg.append("defs");
 
   //// RELAYOUT
@@ -136,7 +136,9 @@ const drawsankey = (props) => {
       .attr("class", "link")
       .attr("d", function (d) {
         try {
-          return path((defaultPath = d));
+          return path(
+            //defaultPath = 
+            d);
         } catch (e) {
           return path(d);
           //console.log(d.source.x);
@@ -144,9 +146,9 @@ const drawsankey = (props) => {
       })
       .style("opacity", 0)
       .style("stroke-width", function (d) {
-        //return Math.max(1, defaultPath.dy);
+        return Math.max(1, d.dy);
         //console.log(d.dy);
-        return (defaultPath.dy = d.dy);
+        //return (defaultPath.dy =d.dy);
         //return Math.max(1, defaultPath.dy);
       })
       // .sort(function (a, b) {
@@ -175,7 +177,7 @@ const drawsankey = (props) => {
     var node = svg.selectAll(".node").data(graph.nodes, function (d) {
       return d.name;
     });
-
+console.log(link)
     var entering = node.enter().append("g");
 
     entering
@@ -183,9 +185,7 @@ const drawsankey = (props) => {
       .attr("transform", function (d) {
         try {
           d.relative =
-            defaultPath.source.x === d.x
-              ? defaultPath.source
-              : defaultPath.target;
+            d.source.x === d.x ? d.source : d.target;
           console.log((d.relative = defaultPath.source));
         } catch (error) {
           d.relative = d;
@@ -206,11 +206,13 @@ const drawsankey = (props) => {
       .append("rect")
       .on("click", function (d) {
         resetSizeDown();
-        defaultPath = link
+        //defaultPath = 
+        console.log(link.filter(function(e){return e.source.name == d.name}))
+        link
           .filter(function (e) {
             return e.source.name == d.name || e.target.name == d.name;
           })
-          .data(defaultPath);
+          .data();
         //console.log(defaultPath);
         redraw(
           maindata,
@@ -473,9 +475,7 @@ const drawsankey = (props) => {
   );
 
   /* DRAW THE SANKEY */
-  redraw(data);
-
-  console.log(redraw(data));
+  redraw(data,null);
 
   // for gradient coloring
   //var defs = svg.append("defs");
@@ -546,8 +546,11 @@ const drawsankey = (props) => {
     });
     */
 
-    return graph;
+    return  graph; 
+
   }
+
+
 
   /* GRAB THE BUTTON AND SETUP AN ACTION */
   document.getElementById("reset").addEventListener("click", reset);

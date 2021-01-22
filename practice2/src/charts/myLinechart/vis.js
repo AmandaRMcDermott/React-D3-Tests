@@ -209,7 +209,7 @@ const drawlinechart = (props) => {
       `translate(` +
         `calc( -25% + ${x}px),` +
         `calc(+` +
-        yScale(-120) +
+        yScale(-350) +
         `% + ${y}px)` +
         `)`
     );

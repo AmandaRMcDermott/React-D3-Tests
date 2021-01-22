@@ -1,11 +1,11 @@
 const sankey_string =
-  /*`source,target,value
+`source,target,value
 1 - A,2 - B,4
 2 - B,3 - D,2
 1 - A,2 - C,1
-3 - D,4 - E,1`;*/
+3 - D,4 - E,1`;
 
-  `source,target,value
+/*`source,target,value
 1 - eFile,2 - Refund,2
 2 - Refund,3 - Full Pay,2
 3 - Full Pay,4 - Journey Complete!,2
@@ -14,7 +14,7 @@ const sankey_string =
 2 - Incoming Phone Call,3 - Refund,1
 3 - Refund,4 - Journey Complete!,1
 2 - Refund,3 - Incoming Phone Call,2
-3 - Incoming Phone Call,4 - Full Pay,1`;
+3 - Incoming Phone Call,4 - Full Pay,1`;*/
 
 /*`source,target,value
 lead_15,S,300
