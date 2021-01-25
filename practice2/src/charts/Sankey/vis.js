@@ -77,7 +77,7 @@ const drawsankey = (props) => {
   var defaultPath = {};
 
   // for gradient coloring
-  var defs = svg.append("defs");
+  //var defs = svg.append("defs");
 
   //// RELAYOUT
   var redraw = function (maindata, filter) {
@@ -115,7 +115,7 @@ const drawsankey = (props) => {
       return d.source.name + "-" + d.target.name;
     });
 
-    //console.log(path(graph.links[0]));
+    console.log(link);
 
     /* RESET CANVAS SIZE */
     var resetSizeDown = function () {
@@ -142,23 +142,23 @@ const drawsankey = (props) => {
           //console.log(d.source.x);
         }
       })
-      .style("opacity", 0)
+      .style("opacity", 1)
       .style("stroke-width", function (d) {
         //return Math.max(1, defaultPath.dy);
         //console.log(d.dy);
-        return (defaultPath.dy = d.dy);
+        return Math.max(1, (defaultPath.dy = d.dy));
         //return Math.max(1, defaultPath.dy);
       })
-      .sort(function (a, b) {
-        return b.dy - a.dy;
-      })
+      ////.sort(function (a, b) {
+      ////  return b.dy - a.dy;
+      ////})
       .append("title")
       .text(function (d) {
         return d.source.name + " -> " + d.target.name + "\n" + format(d.value);
       });
-
+    console.log(link);
     link
-      .transition()
+      .transition() // controls link transitions
       .duration(duration)
       .style("opacity", 0.65)
       .attr("d", path)
@@ -182,10 +182,7 @@ const drawsankey = (props) => {
       //.data(graph)
       .attr("transform", function (d) {
         try {
-          d.relative =
-            defaultPath.source.x === d.x
-              ? defaultPath.source
-              : defaultPath.target;
+          d.relative = d.source.x === d.x ? d.source : d.target;
           //console.log((d.relative = defaultPath.source));
         } catch (error) {
           d.relative = d;
@@ -205,193 +202,14 @@ const drawsankey = (props) => {
     entering
       .append("rect")
       .on("click", function (d) {
-        //resetSizeDown();
-        defaultPath = link
-          .filter(function (e) {
-            return e.source.name == d.name || e.target.name == d.name;
-            //console.log(e.source.name == d.name || e.target.name == d.name);
-          })
-          .datum(defaultPath);
-
-        console.log(
-          link.filter(function (e) {
-            return e.source.name;
-          })
-        );
-
-        //console.log(defaultPath);
-        redraw(
-          maindata,
-          (filter = function (e) {
-            var remainingNodes = [],
-              nextNodes = [],
-              allLinks = [];
-
-            var traverse = [
-              {
-                linkType: "sourceLinks",
-                nodeType: "target",
-              },
-              {
-                linkType: "targetLinks",
-                nodeType: "source",
-              },
-            ];
-
-            traverse.forEach(function (step) {
-              d[step.linkType].forEach(function (link) {
-                remainingNodes.push(link[step.nodeType]);
-                allLinks.push(link[step.nodeType].name);
-
-                //console.log(remainingNodes);
-              });
-
-              //console.log(d);
-              while (remainingNodes.length) {
-                nextNodes = [];
-                remainingNodes.forEach(function (node) {
-                  node[step.linkType].forEach(function (link) {
-                    nextNodes.push(link[step.nodeType]);
-                    allLinks.push(link[step.nodeType].name);
-                  });
-                });
-                remainingNodes = nextNodes;
-                //console.log(nextNodes);
-              }
-            });
-            //console.log(nextNodes);
-            //console.log(d);
-            var nodeNames = d3.keys(
-              d3
-                .nest()
-                .key(function (d) {
-                  return d;
-                })
-                .object(allLinks)
-            );
-            //console.log(allLinks);
-            /*
-            var nodeNames = d3.keys(
-              d3.nest().key(function (d) {
-                return d.name;
-                console.log(d);
-              })
-              .map(allLinks)
-          
-            
-            );
-            */
-            //console.log(d);
-            //console.log(nodeNames[nodeNames.indexOf(e.target)]);
-            // when changing from 'i' to 'F1-' must address substring as well
-
-            // NODE IN FIRST COLUMN IS CLICKED;
-
-            if (d.name.substring(0, 1) == "1") {
-              //console.log(d.name);
-              //console.log(nodeNames.indexOf(e.target));
-              //console.log(nodeNames.indexOf(e.source));
-              return (
-                e.source == d.name /*|| e.target==d.name */ ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
-            //console.log(e.source);
-
-            // declared is clicked
-            if (d.name.substring(0, 1) == "2") {
-              /*console.log(
-                "Target",
-                nodeNames.indexOf(e.target) > -1
-                  ? nodeNames[nodeNames.indexOf(e.target)]
-                  : ""
-              );
-              console.log(
-                "Source",
-                nodeNames.indexOf(e.source) > -1
-                  ? nodeNames[nodeNames.indexOf(e.source)]
-                  : ""
-              );
-*/
-              return (
-                e.source == d.name ||
-                e.target == d.name ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
-
-            // declared is clicked
-            if (d.name.substring(0, 1) == "3") {
-              //console.log(d.name);
-              return (
-                e.source == d.name ||
-                e.target == d.name ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
-            // declared is clicked
-            if (d.name.substring(0, 1) == "4") {
-              return (
-                e.source == d.name ||
-                e.target == d.name ||
-                (e.target ==
-                  (nodeNames.indexOf(e.target) > -1
-                    ? nodeNames[nodeNames.indexOf(e.target)]
-                    : "") &&
-                  e.source ==
-                    (nodeNames.indexOf(e.source) > -1
-                      ? nodeNames[nodeNames.indexOf(e.source)]
-                      : ""))
-              );
-            }
-            // degree is clicked
-            //console.log(allLinks);
-            /*
-            if (
-              d.name.substring(0, 1) == "3" ||
-              d.name.substring(0, 1) == "1"
-            ) {
-              return (
-                e.target == d.name ||
-                (e.source ==
-                  (nodeNames.indexOf(e.source) > -1
-                    ? nodeNames[nodeNames.indexOf(e.source)]
-                    : "") &&
-                  e.target ==
-                    (nodeNames.indexOf(e.target) > -1
-                      ? nodeNames[nodeNames.indexOf(e.target)]
-                      : ""))
-              );
-              console.log(e.target);
-            }*/
-          })
-        );
+        console.log(d);
+        node.selectAll(".node").exit().remove();
       })
-
       .style("fill", function (d) {
         return (d.color = color(d.name.replace(/ .*/, "")));
       })
+      .transition()
+      .duration(duration)
       .style("stroke", function (d) {
         return d3.rgb(d.color).darker(2);
       })
@@ -417,6 +235,8 @@ const drawsankey = (props) => {
 
     entering
       .append("text")
+      //.transition()
+      //.duration(duration)
       //.style("font-size", function (d) {
       //  return textScale(d.value);
       //})
@@ -450,8 +270,10 @@ const drawsankey = (props) => {
       .duration(duration)
       .style("opacity", 1)
       .attr("height", function (d) {
+        // controls if clicked node changes height
+        //return d3.max([2, this.parentNode.__data__.dy]);
         return d3.max([2, this.parentNode.__data__.dy]);
-        //console.log(this.parentNode.__data__.dy);
+        console.log(d.dy);
       })
       .attr("width", Sankey.nodeWidth());
 
@@ -462,8 +284,7 @@ const drawsankey = (props) => {
         return this.parentNode.__data__.dy / 2;
       });
 
-    node.exit().remove();
-    //console.log(node);
+    node.exit().remove(); // removes node if its a child of the parent node of the clicked node
   };
 
   var starts = d3.set(
@@ -481,7 +302,9 @@ const drawsankey = (props) => {
   );
 
   /* DRAW THE SANKEY */
-  redraw(data);
+  redraw(data, function () {
+    return true;
+  });
 
   console.log(redraw(data));
 
