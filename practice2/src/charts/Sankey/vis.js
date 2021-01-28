@@ -115,7 +115,6 @@ const drawsankey = (props) => {
       return d.source.name + "-" + d.target.name;
     });
 
-    console.log(link);
 
     /* RESET CANVAS SIZE */
     var resetSizeDown = function () {
@@ -158,7 +157,7 @@ const drawsankey = (props) => {
       .text(function (d) {
         return d.source.name + " -> " + d.target.name + "\n" + format(d.value);
       });
-    console.log(link);
+
     link
       .transition() // controls link transitions
       .duration(duration)
@@ -177,7 +176,7 @@ const drawsankey = (props) => {
     var node = svg.selectAll(".node").data(graph.nodes, function (d) {
       return d.name;
     });
-console.log(link)
+
     var entering = node.enter().append("g");
 
     entering
@@ -201,11 +200,19 @@ console.log(link)
         return d.name + "\n" + format(d.value);
       });
 
+
+
+
     entering
       .append("rect")
       .on("click", function (d) {
         console.log(d);
-        node.selectAll(".node").exit().remove();
+        var test = d3.select(this)      
+        //.transition()
+        //.duration(duration)
+
+        console.log(test)
+        //.style("opacity", 0);
       })
       .style("fill", function (d) {
         return (d.color = color(d.name.replace(/ .*/, "")));
@@ -220,7 +227,7 @@ console.log(link)
         //console.log(d.x);
       })
       .attr("width", Sankey.nodeWidth())
-      .style("opacity", 1);
+      //.style("opacity", 1);
 
     // Scale for text
     /*
