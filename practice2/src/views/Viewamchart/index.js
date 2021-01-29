@@ -13,7 +13,7 @@ export default class Viewamchart extends Component {
       <div id="viewamchart" className="pane">
         <div className="header">Sankey test</div>
         <div style={{ overflowX: "scroll", overflowY: "hidden" }}>
-          <SankeyPlotAm  width={width} height={height} />
+          <SankeyPlotAm  data = {data} width={width} height={height} />
         </div>
       </div>
     );

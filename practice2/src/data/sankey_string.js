@@ -1,6 +1,7 @@
 const sankey_string =
 `source,target,value
 1 - A,2 - B,4
+1 - New,2 - B,2
 2 - B,3 - D,2
 1 - A,2 - C,1
 3 - D,4 - E,1`;

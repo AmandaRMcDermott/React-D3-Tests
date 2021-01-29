@@ -6,6 +6,7 @@ import View4 from "./views/View4";
 import Viewamchart from "./views/Viewamchart";
 import data2 from "./data";
 import nycdata from "./data/nyc_weather_data.json";
+import sankeyDrilldown from "./data/sankey_drilldown.json";
 
 import { Layout } from "antd";
 
@@ -34,24 +35,25 @@ export default class Dashboard extends Component {
       linedata: data2[0].data[0][0],
       nyc: nycdata,
       sankey: data2[0].sankey_data[0],
+      sankeyDrill: sankeyDrilldown
     };
   }
 
   render() {
-    const { linedata, nyc, sankey } = this.state;
-    //console.log(this.state);
+    const { linedata, nyc, sankey, sankeyDrill } = this.state;
+    console.log(sankeyDrill);
     return (
       <div>
         <Layout style={{ height: 2000 }}>
           <Layout>
-          <Content style={{ height: 350 }}>
+          <Content style={{ height: 550 }}>
           <button id="reset">Reset</button>
               <View2 data={sankey}  />
             </Content>
-            <Content style={{ height: 350 }}>
-              <Viewamchart  />
+            <Content style={{ height: 550 }}>
+              <Viewamchart  data={sankeyDrill} />
             </Content>
-            <Content style={{ height: 650 }}>
+            <Content style={{ height: 550 }}>
               <View4 data={sankey} />
             </Content>
             <Content style={{ height: 450 }}>
