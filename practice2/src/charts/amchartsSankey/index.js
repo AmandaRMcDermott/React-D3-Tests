@@ -60,27 +60,66 @@ console.log(data)
         nodeTemplate.showSystemTooltip = true;
         nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer
         
+        // navigation
+        var nav = chart.createChild(am4charts.NavigationBar);
+        nav.data = [{ name: "Home" }];
+        nav.toBack();
+
         // Drilldown feature
         chart.links.template.cursorOverStyle = am4core.MouseCursorStyle.pointer;
         chart.links.template.events.on("hit",function(ev){
             chart.colors.reset();
             let linkData = ev.target.dataItem.dataContext;
+
+            // for navigation
+            let nav = chart.children.getIndex(0);
+
             if (linkData.sub) {
                 chart.data = linkData.sub;
+
+                nav.data.push({
+                    name: ev.target.populateString("{fromName}->{toName}"),
+                    step: ev.target.dataItem.dataContext
+                });
+                nav.invalidateData();
             }
-            chart.sequencedInterpolation = false
+
+            // navigation functionality
+            nav.links.template.events.on("hit", function(ev) {
+                var target = ev.target.dataItem.dataContext;
+                var nav = ev.target.parent;
+                
+                chart.colors.reset();
+                if(target.step) {
+                    chart.data = target.step.sub;
+                    nav.data.splice(nav.data.indexOf(target) + 1);
+                    nav.invalidateData();
+                } else {
+                    chart.data = data;
+                    nav.data = [{name: "Home" }]
+                }
+            })
+            console.log(nav)
+
         })
 
-
+        chart.sequencedInterpolation = false
+        chart.sequencedInterpolationDelay = 1000
         }); // end am4core.ready()
     this.chart = chart;
     //drawsankey(this.props);
   }
 
-  componentDidUpdate(preProps) {
-    //transformData(this.props);
-  }
+  //componentDidUpdate(preProps) {
 
+    //transformData(this.props);
+  //}
+
+  componentWillUnmount(){
+      if (this.chart) {
+        this.chart.dispose();
+      }
+  }
   render() {
     return <div className="vis-sankeyam" />;
   }
