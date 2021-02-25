@@ -1,52 +1,39 @@
 [
+  {
+    "from": "2018",
+    "to": "2019",
+    "value": 10,
+    "sub": [
+          { "from": "eFile1 - 2018", "to": "Full Pay2 - 2018", "value": 1 },
+          { "from": "Full Pay2 - 2018", "to": "Refund3 - 2019", "value": 1 },
+          { "from": "Refund3 - 2019", "to": "Filler4", "value": 1, "linkOpacity":0 },
+          { "from": "Filler4", "to": "End - 2019", "value": 1, "linkOpacity":0, "linkColor": "#06D6A0" },
+          { "from": "eFile1 - 2018", "to": "Incoming Phone Call2 - 2018", "value": 2 },
+          { "from": "Incoming Phone Call2 - 2018", "to": "Full Pay3 - 2018", "value": 1 },
+          { "from": "Full Pay3 - 2018", "to": "Refund4 - 2019", "value": 1 },
+          { "from": "Refund4 - 2019", "to": "End - 2019", "value": 1 }
+        ]
+  },
     {
-      "from": "A",
-      "to": "D",
+      "from": "2019",
+      "to": "2020",
       "value": 10,
       "sub": [
-        { "from": "A1", "to": "D1", "value": 2 },
-        {
-          "from": "A2",
-          "to": "D2",
-          "value": 5,
-          "sub": [
-            { "from": "A1-1", "to": "D1-1", "value": 1 },
-            { "from": "A1-1", "to": "D1-2", "value": 1 },
-            { "from": "A1-2", "to": "D1-2", "value": 2 },
-            { "from": "A1-2", "to": "D1-3", "value": 1 }
+            { "from": "eFile - 2019", "to": "D1-1", "value": 1 },
+            { "from": "eFile - 2019", "to": "D1-2", "value": 1 },
+            { "from": "eFile - 2019", "to": "D1-2", "value": 2 },
+            { "from": "eFile - 2019", "to": "D1-3", "value": 1 }
           ]
-        },
-        { "from": "A3", "to": "D2", "value": 3 }
-      ]
     },
     {
-      "from": "B",
-      "to": "D",
+      "from": "2019",
+      "to": "2020",
       "value": 8,
       "sub": [
         { "from": "B1", "to": "D1", "value": 2 },
         { "from": "B2", "to": "D2", "value": 2 },
         { "from": "B3", "to": "D2", "value": 3 },
         { "from": "B4", "to": "D2", "value": 1 }
-      ]
-    },
-    {
-      "from": "B",
-      "to": "E",
-      "value": 4,
-      "sub": [
-        { "from": "B1", "to": "E1", "value": 2 },
-        { "from": "B2", "to": "E2", "value": 1 },
-        { "from": "B2", "to": "E3", "value": 1 }
-      ]
-    },
-    {
-      "from": "C",
-      "to": "E",
-      "value": 3,
-      "sub": [
-        { "from": "C1", "to": "E1", "value": 2 },
-        { "from": "C1", "to": "E2", "value": 1 }
       ]
     }
   ]

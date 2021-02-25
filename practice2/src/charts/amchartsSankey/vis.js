@@ -13,17 +13,16 @@ const transformData = (props) => {
   }
 
   let chart = am4core.create("vis-sankeyam", am4charts.XYChart);
-    
-  am4core.ready(function() {
 
-      // Themes begin
-      am4core.useTheme(am4themes_animated);
-      // Themes end
-      
-      var chart = am4core.create("vis-sankeyam", am4charts.SankeyDiagram);
-      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-      
-      /*
+  am4core.ready(function () {
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    var chart = am4core.create("vis-sankeyam", am4charts.SankeyDiagram);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+    /*
       chart.data = [
         { from: "eFile", to: "Refund", value: 10 },
         { from: "Refund", to: "Full Pay", value: 8 },
@@ -34,30 +33,33 @@ const transformData = (props) => {
       ];
       */
 
-      let hoverState = chart.links.template.states.create("hover");
-      hoverState.properties.fillOpacity = 0.6;
-      
-      chart.dataFields.fromName = "source";
-      chart.dataFields.toName = "target";
-      chart.dataFields.value = "value";
-      
-      // for right-most label to fit
-      chart.paddingRight = 100;
-      
-      // make nodes draggable
-      var nodeTemplate = chart.nodes.template;
-      nodeTemplate.inert = true;
-      nodeTemplate.readerTitle = "Drag me!";
-      nodeTemplate.showSystemTooltip = true;
-      nodeTemplate.width = 20;
-      
-      // make nodes draggable
-      var nodeTemplate = chart.nodes.template;
-      nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
-      nodeTemplate.showSystemTooltip = true;
-      nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer
-      
-      }); // end am4core.ready()
+    let hoverState = chart.links.template.states.create("hover");
+    hoverState.properties.fillOpacity = 0.6;
+
+    chart.dataFields.fromName = "source";
+    chart.dataFields.toName = "target";
+    chart.dataFields.value = "value";
+
+    var linkTemplate = chart.links.template;
+    linkTemplate.propertyFields.fill = "linkColor";
+    linkTemplate.propertyFields.fillOpacity = "linkOpacity";
+
+    // for right-most label to fit
+    chart.paddingRight = 100;
+
+    // make nodes draggable
+    var nodeTemplate = chart.nodes.template;
+    nodeTemplate.inert = true;
+    nodeTemplate.readerTitle = "Drag me!";
+    nodeTemplate.showSystemTooltip = true;
+    nodeTemplate.width = 20;
+
+    // make nodes draggable
+    var nodeTemplate = chart.nodes.template;
+    nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
+    nodeTemplate.showSystemTooltip = true;
+    nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+  }); // end am4core.ready()
   //this.chart = chart;
 
   /* FORMAT DATA */
@@ -101,12 +103,11 @@ const transformData = (props) => {
       graph.nodes[i] = { name: d };
     });
 
-    return  graph; 
-
+    return graph;
   }
 
-const graph=formatData(data)
-console.log(graph)
-}
+  const graph = formatData(data);
+  console.log(graph);
+};
 
 export default transformData;
